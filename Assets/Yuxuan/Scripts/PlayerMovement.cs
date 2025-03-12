@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _isStay;
     private GameObject currentTrigger;
 
+    private Animator player_animator;
+
     // 对象池
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
 
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
+        player_animator = GetComponent<Animator>();
 
         // 初始化对象池
         for (int i = 0; i < ghostPoolSize; i++)
@@ -48,18 +51,39 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        hpText.text = "当前生命值："+ hp.ToString();
+        hpText.text = "当前生命值：" + hp.ToString();
+
         if (!isDashing)
         {
             // 获取常规移动输入
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+            UpdateAnimation();
+
         }
+
 
         // 检测冲刺输入
         if (Input.GetKeyDown(KeyCode.Space) && canDash && moveInput != Vector2.zero)
         {
             StartCoroutine(Dash());
         }
+    }
+
+    void UpdateAnimation()
+    {
+        int direction = 0; // Idle
+
+        if (moveInput.y > 0)
+            direction = 2; // 向上
+        else if (moveInput.y < 0)
+            direction = 1; // 向下
+        else if (moveInput.x > 0)
+            direction = 4; // 向右
+        else if (moveInput.x < 0)
+            direction = 3; // 向左
+
+        player_animator.SetInteger("MoveDirection", direction);
     }
 
     void FixedUpdate()
