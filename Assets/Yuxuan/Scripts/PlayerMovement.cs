@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public Image img;
     public float hp;
     public Text hpText;
+    private bool _isStay;
+    private GameObject currentTrigger;
 
     // 对象池
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
@@ -66,6 +68,29 @@ public class PlayerMovement : MonoBehaviour
         {
             // 常规移动
             rb.velocity = moveInput * moveSpeed;
+        }
+
+        if (_isStay)
+        {
+            timer -=Time.deltaTime;
+            img.fillAmount = timer / 5;
+            if (timer <= 0)
+            {
+                StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
+                if (currentTrigger.name.Equals("红"))
+                {
+                    Collection.red++;
+                }
+                else if (currentTrigger.name.Equals("绿"))
+                {
+                    Collection.green++;
+                }
+                else if (currentTrigger.name.Equals("蓝"))
+                {
+                    Collection.blue++;
+                }
+                timer = 5;
+            }
         }
     }
 
@@ -155,36 +180,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+       
+       
         if (collision.CompareTag("收集元素"))
         {
-            timer -=Time.deltaTime;
-            img.fillAmount = timer / 5;
-            if (timer <= 0)
-            {
-                StartCoroutine(BlinkAndHide(collision.transform.GetChild(0).gameObject));
-                if (collision.name.Equals("红"))
-                {
-                    Collection.red++;
-                }
-                else if (collision.name.Equals("绿"))
-                {
-                    Collection.green++;
-                }
-                else if (collision.name.Equals("蓝"))
-                {
-                    Collection.blue++;
-                }
-                timer = 5;
-            }
+            _isStay = true;
+            currentTrigger = collision.gameObject;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("收集元素"))
+        /*if (collision.CompareTag("收集元素"))
         {
             timer = 5;
-        }
+            _isStay =false;
+        }*/
     }
     
     IEnumerator BlinkAndHide(GameObject ghost)
