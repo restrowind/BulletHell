@@ -25,6 +25,7 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
     private int currentRound = 0;
     private BossCountDown bossCountDown;
     private BattleState _currentState;
+    private bool hasSpawnedThisPhase = false;
 
     private void Start()
     {
@@ -33,7 +34,6 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
         {
             currentRound = bossCountDown.roundCount;
         }
-        StartRoundSpawn();
     }
 
     private void Update()
@@ -43,6 +43,12 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
         if (bossCountDown != null && bossCountDown.roundCount != currentRound)
         {
             currentRound = bossCountDown.roundCount;
+            hasSpawnedThisPhase = false;
+        }
+
+        if (!hasSpawnedThisPhase)
+        {
+            hasSpawnedThisPhase = true;
             StartRoundSpawn();
         }
     }
@@ -51,6 +57,7 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
     {
         if (currentRound < roundObjects.Count)
         {
+            Debug.Log("SpawnObject: 开始生成回合 " + currentRound);
             foreach (ObjectConfig obj in roundObjects[currentRound].objects)
             {
                 StartCoroutine(SpawnRoutine(obj));
@@ -61,20 +68,20 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
     private IEnumerator SpawnRoutine(ObjectConfig config)
     {
         yield return new WaitForSeconds(config.spawnTime);
-        // 生成新对象
         GameObject newObj = Instantiate(config.prefab);
         newObj.GetComponent<Sender>().bullet = config.bullet;
         newObj.GetComponent<Sender>().IsAttack = true;
         newObj.transform.position = config.spawnPosition;
         newObj.transform.localEulerAngles = new Vector3(0, 0, config.rotation);
-
-        // 设置自动销毁
         Destroy(newObj, config.destroyTime);
     }
 
     public void SetState(BattleState newState)
     {
+        if (_currentState == newState) return;
+
         _currentState = newState;
+        hasSpawnedThisPhase = false;
     }
 
     // 可视化生成点（可选）

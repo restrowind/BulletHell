@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour
     {
         phaseDependentObjects = FindObjectsOfType<MonoBehaviour>().OfType<IBattlePhaseDependent>().ToList();
 
-        SetGameState(BattleState.BulletPhase);
+        //≤‚ ‘”√
+        //SetGameState(BattleState.BulletPhase);
     }
 
     public void SetGameState(BattleState newState)
