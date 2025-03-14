@@ -16,7 +16,7 @@ public class Sender : MonoBehaviour
 
     private void Awake()
     {
-        bulletsParent = GameObject.Find("Bullet").transform;
+        bulletsParent = GameObject.Find("BulletController").transform;
         target = GameObject.FindGameObjectWithTag("Player").transform;
       
         currentAngularSpeedVelocity = bullet.SenderAngularVelocity;

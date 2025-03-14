@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Object
+public class RoundConfig
+{
+    public List<ObjectConfig> objects; // 当前回合的对象列表
+}
+
+[System.Serializable]
+public class ObjectConfig
 {
     public GameObject prefab;      // 要生成的预制体
     public BulletObject bullet;    // 子弹属性（需要自定义BulletObject类）
@@ -13,35 +19,64 @@ public class Object
     public float rotation;
 }
 
-public class SpawnObject : MonoBehaviour
+public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
 {
-    public List<Object> objects;   // 对象配置列表
+    public List<RoundConfig> roundObjects; // 每个回合独立的对象配置列表
+    private int currentRound = 0;
+    private BossCountDown bossCountDown;
+    private BattleState _currentState;
 
     private void Start()
     {
-        // 为每个配置对象启动独立的生成协程
-        foreach (Object obj in objects)
+        bossCountDown = FindObjectOfType<BossCountDown>();
+        if (bossCountDown != null)
         {
-            StartCoroutine(SpawnRoutine(obj));
+            currentRound = bossCountDown.roundCount;
+        }
+        StartRoundSpawn();
+    }
+
+    private void Update()
+    {
+        if (_currentState != BattleState.BulletPhase) return;
+
+        if (bossCountDown != null && bossCountDown.roundCount != currentRound)
+        {
+            currentRound = bossCountDown.roundCount;
+            StartRoundSpawn();
         }
     }
 
-    private IEnumerator SpawnRoutine(Object config)
+    private void StartRoundSpawn()
+    {
+        if (currentRound < roundObjects.Count)
+        {
+            foreach (ObjectConfig obj in roundObjects[currentRound].objects)
+            {
+                StartCoroutine(SpawnRoutine(obj));
+            }
+        }
+    }
+
+    private IEnumerator SpawnRoutine(ObjectConfig config)
     {
         yield return new WaitForSeconds(config.spawnTime);
         // 生成新对象
-        GameObject newObj = Instantiate(
-            config.prefab
-        );
+        GameObject newObj = Instantiate(config.prefab);
         newObj.GetComponent<Sender>().bullet = config.bullet;
         newObj.GetComponent<Sender>().IsAttack = true;
         newObj.transform.position = config.spawnPosition;
-        newObj.transform.localEulerAngles = new Vector3(0,0,config.rotation);
-       
+        newObj.transform.localEulerAngles = new Vector3(0, 0, config.rotation);
+
         // 设置自动销毁
         Destroy(newObj, config.destroyTime);
-        // 等待下次生成
     }
+
+    public void SetState(BattleState newState)
+    {
+        _currentState = newState;
+    }
+
     // 可视化生成点（可选）
     private void OnDrawGizmosSelected()
     {
