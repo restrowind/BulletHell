@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IBattlePhaseDependent
 {
     // 移动参数
     public float moveSpeed = 5f;
@@ -34,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
     // 对象池
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
 
+    // 阶段切换
+    private BattleState _currentState;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (_currentState != BattleState.BulletPhase) return;
+
         hpText.text = "当前生命值：" + hp.ToString();
 
         if (!isDashing)
@@ -88,6 +95,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_currentState != BattleState.BulletPhase) return;
+
+
         if (!isDashing)
         {
             // 常规移动
@@ -234,4 +244,10 @@ public class PlayerMovement : MonoBehaviour
         // 确保物体最终隐藏
         ghost.SetActive(false);
     }
+
+    public void SetState(BattleState newState)
+    {
+        _currentState = newState;
+    }
+
 }
