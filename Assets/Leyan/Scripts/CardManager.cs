@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TMPro;
 
 public enum CardPiles
 {
@@ -11,6 +12,14 @@ public enum CardPiles
     Draw,
     Discard,
     Exhaust
+}
+
+public enum CardState
+{
+    Play,
+    Discard,
+    Bullet,
+    Other
 }
 
 public static class ListExtensions
@@ -30,7 +39,7 @@ public static class ListExtensions
 
 public class CardManager : MonoBehaviour
 {
-
+    [SerializeField] private BattleManager battleManager;
     public static CardManager Instance { get; private set; }
 
     private Dictionary<int, CardDataSO> cardDictionary = new Dictionary<int, CardDataSO>();
@@ -45,6 +54,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] private List<CardInstance> discardPile = new List<CardInstance>();
     private List<CardInstance> exhaustPile = new List<CardInstance>();
 
+    [SerializeField] private int maxKeepCount = 8;
+    [SerializeField] private int maxHandCount = 12;
+
     private int allCardsSize => initCards.Count;
     private int handPileSize => handPile.Count;
     private int drawPileSize => drawPile.Count;
@@ -54,6 +66,24 @@ public class CardManager : MonoBehaviour
     [SerializeField] private HandPileMainUI HandPileMainUI;
 
     public int testDrawCard = 4;
+
+    private CardState currentCardState=CardState.Other;
+
+    [SerializeField] private Transform handPileArea;
+    private Vector3 initHandPilePos;
+    [SerializeField] private float hiddenHandPileY;
+    private Vector3 hiddenHandPilePos;
+
+    [SerializeField] private float handPileSmoothSpeed = 3f;
+
+    public bool forceDisplayHandPile = false;
+
+    private bool canPlayCard = false;
+
+    [SerializeField] private GameObject tipBoardPfb;
+    [SerializeField] private Transform cardSystemCanvas;
+    [SerializeField] private Animator discardPage;
+
 
     private void Awake()
     {
@@ -103,11 +133,24 @@ public class CardManager : MonoBehaviour
         discardPile.Clear();
     }
 
-    private void DrawCards(int n)
+    public void DrawCards(int n)
     {
-        for (int i = 0; i < n; i++)
+        int drawNum = 0;
+        if (handPileSize + n <= maxHandCount)
         {
-           
+            drawNum = n;
+        }
+        else
+        {
+            drawNum = maxHandCount - handPileSize;
+            //手牌数量超过上限
+            SpawnATipBoard("手牌数量已满,无法抽取更多卡牌");
+
+        }
+
+        for (int i = 0; i < drawNum; i++)
+        {
+
             if (drawPile.Count > 0)
             {
                 handPile.Add(drawPile[0]);
@@ -135,7 +178,12 @@ public class CardManager : MonoBehaviour
         CardInstance card7 = new CardInstance();
         CardInstance card8 = new CardInstance();
         CardInstance card9 = new CardInstance();
-        CardInstance card10 = new CardInstance();
+        CardInstance card10 = new CardInstance(); 
+        CardInstance card11 = new CardInstance();
+        CardInstance card12 = new CardInstance();
+        CardInstance card13 = new CardInstance();
+        CardInstance card14 = new CardInstance();
+        CardInstance card15 = new CardInstance();
         card1.InitCard(1);
         card2.InitCard(1);
         card3.InitCard(1);
@@ -146,28 +194,38 @@ public class CardManager : MonoBehaviour
         card8.InitCard(101);
         card9.InitCard(101);
         card10.InitCard(101);
+        card11.InitCard(2);
+        card12.InitCard(2);
+        card13.InitCard(101);
+        card14.InitCard(101);
+        card15.InitCard(101);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
         initCards.Add(card4);
         initCards.Add(card5);
-        initCards.Add(card6); 
+        initCards.Add(card6);
         initCards.Add(card7);
         initCards.Add(card8);
         initCards.Add(card9);
         initCards.Add(card10);
+        initCards.Add(card11);
+        initCards.Add(card12);
+        initCards.Add(card13);
+        initCards.Add(card14);
+        initCards.Add(card15);
 
         //测试
         initCardsManagerForCombat();
+        initHandPilePos = handPileArea.position;
+        hiddenHandPilePos = handPileArea.position + new Vector3(0, hiddenHandPileY - initHandPilePos.y, 0);
+
+        handPileArea.position = hiddenHandPilePos;
     }
 
     private void Update()
     {
-        //测试
-        if(Input.GetKeyDown(KeyCode.Backspace))
-        {
-            DrawCards(testDrawCard);
-        }
+        HandleHandPilePosition();
     }
     public bool TryPlayCard(HandCardUIInstance card)
     {
@@ -217,4 +275,73 @@ public class CardManager : MonoBehaviour
         Debug.LogWarning($"未找到 ID 为 {cardID} 的卡牌！");
         return null;
     }
+
+    public void ExecuteDiscardPhase()
+    {
+        if(handPileSize>maxKeepCount)
+        {
+            Discard(handPileSize - maxKeepCount);
+        }
+        else
+        {
+            battleManager.MoveToNextState();
+            SpawnATipBoard("无需弃牌");
+        }
+    }
+    public void SetCardState(CardState state)
+    {
+        currentCardState = state;
+        HandPileMainUI.SetCanPlayCards(state);
+        
+    }
+    private void Discard(int count)
+    {
+        SetCardState(CardState.Discard);
+        discardPage.Play("DiscardPageFadeIn");
+        HandPileMainUI.StartDiscard(count);
+    }
+    public void DiscardOver()
+    {
+        discardPage.Play("DiscardPageFadeOut");
+    }
+
+    public void ConfirmDiscard()
+    {
+        HandPileMainUI.ConfirmDiscard();
+
+    }
+    public void DiscardToDiscardPile(CardInstance card)
+    {
+        handPile.Remove(card);
+        discardPile.Add(card);
+    }
+
+    private void HandleHandPilePosition()
+    {
+        if(currentCardState== CardState.Bullet)
+        {
+            if (forceDisplayHandPile)
+            {
+                handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, 0.01f * handPileSmoothSpeed);
+            }
+            else
+            {
+                handPileArea.position = Vector3.Lerp(handPileArea.position, hiddenHandPilePos, 0.01f * handPileSmoothSpeed);
+            }
+            canPlayCard = false;
+        }
+        else
+        {
+            handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, 0.01f* handPileSmoothSpeed);
+            canPlayCard = true;
+        }
+    }
+
+    public void SpawnATipBoard(string text)
+    {
+        Transform tipBoard= Instantiate(tipBoardPfb, cardSystemCanvas).transform;
+        tipBoard.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+        Destroy(tipBoard.gameObject,1.5f);
+    }
+
 }
