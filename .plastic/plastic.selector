@@ -1,0 +1,4 @@
+repository "BulletHell@tj_dmp2024@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"
