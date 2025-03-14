@@ -33,17 +33,7 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
         {
             currentRound = bossCountDown.roundCount;
         }
-    }
-
-    public void SetState(BattleState newState)
-    {
-        _currentState = newState;
-        Debug.Log("SpawnObject: 进入状态 " + newState);
-
-        if (_currentState == BattleState.BulletPhase)
-        {
-            StartRoundSpawn();
-        }
+        StartRoundSpawn();
     }
 
     private void Update()
@@ -52,7 +42,6 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
 
         if (bossCountDown != null && bossCountDown.roundCount != currentRound)
         {
-            Debug.Log("SpawnObject: 发现新回合 " + bossCountDown.roundCount + "，当前回合 " + currentRound);
             currentRound = bossCountDown.roundCount;
             StartRoundSpawn();
         }
@@ -62,7 +51,6 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
     {
         if (currentRound < roundObjects.Count)
         {
-            Debug.Log("SpawnObject: 开始生成回合 " + currentRound);
             foreach (ObjectConfig obj in roundObjects[currentRound].objects)
             {
                 StartCoroutine(SpawnRoutine(obj));
@@ -73,12 +61,20 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
     private IEnumerator SpawnRoutine(ObjectConfig config)
     {
         yield return new WaitForSeconds(config.spawnTime);
+        // 生成新对象
         GameObject newObj = Instantiate(config.prefab);
         newObj.GetComponent<Sender>().bullet = config.bullet;
         newObj.GetComponent<Sender>().IsAttack = true;
         newObj.transform.position = config.spawnPosition;
         newObj.transform.localEulerAngles = new Vector3(0, 0, config.rotation);
+
+        // 设置自动销毁
         Destroy(newObj, config.destroyTime);
+    }
+
+    public void SetState(BattleState newState)
+    {
+        _currentState = newState;
     }
 
     // 可视化生成点（可选）

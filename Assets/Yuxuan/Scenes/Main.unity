@@ -2079,11 +2079,7 @@ MonoBehaviour:
   timer: 30
   countDownText: {fileID: 2090121454}
   ReStartBtn: {fileID: 1989376284}
-<<<<<<< Updated upstream
   roundCount: 0
-=======
-  roundCount: 1
->>>>>>> Stashed changes
 --- !u!1 &1220171845
 GameObject:
   m_ObjectHideFlags: 0

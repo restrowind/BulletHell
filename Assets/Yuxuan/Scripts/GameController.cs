@@ -26,5 +26,4 @@ public class GameController : MonoBehaviour
             obj.SetState(newState);
         }
     }
-
 }
