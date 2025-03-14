@@ -336,6 +336,13 @@ MonoBehaviour:
       destroyTime: 10
       spawnPosition: {x: 0, y: 0, z: 0}
       rotation: 0
+  - objects:
+    - prefab: {fileID: 2011706068}
+      bullet: {fileID: 11400000, guid: edd031284d544794daa801fe0abca9af, type: 2}
+      spawnTime: 20
+      destroyTime: 25
+      spawnPosition: {x: -10, y: 0, z: 0}
+      rotation: 0
 --- !u!1 &241139216
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,8 +589,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -599,22 +605,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6e0e5f3a6fd3934e897323c30f9aa4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 30
-  countDownText: {fileID: 2090121454}
-  ReStartBtn: {fileID: 1989376284}
-  roundCount: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -673,7 +663,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
+--- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -682,12 +672,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd0ac70a86498640b8298a08b41d240, type: 3}
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueText: {fileID: 2031597967}
-  greenText: {fileID: 1527632315}
-  redText: {fileID: 241139218}
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &531704465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2013,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1211502273}
   - component: {fileID: 1211502272}
+  - component: {fileID: 1211502275}
+  - component: {fileID: 1211502274}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2039,6 +2049,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1211502274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211502271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0ac70a86498640b8298a08b41d240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueText: {fileID: 2031597967}
+  greenText: {fileID: 1527632315}
+  redText: {fileID: 241139218}
+--- !u!114 &1211502275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211502271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e0e5f3a6fd3934e897323c30f9aa4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 30
+  countDownText: {fileID: 2090121454}
+  ReStartBtn: {fileID: 1989376284}
+  roundCount: 0
 --- !u!1 &1220171845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,7 +2497,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.25, y: 5.42}
+  m_Size: {x: 5.905, y: 5.905}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2495,7 +2536,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 5.905, y: 5.905}
-    newSize: {x: 5.25, y: 5.42}
+    newSize: {x: 5.905, y: 5.905}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3279,7 +3320,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519420030}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BossCountDown, Assembly-CSharp
         m_MethodName: ReStart
         m_Mode: 1
