@@ -102,7 +102,7 @@ public class BattleManager : MonoBehaviour
                 _cardManager.SetCardState(CardState.Discard);
                 break;
             case BattleState.Conversation:
-                if (true)
+                if(true)
                 {
                     Invoke("MoveToNextState", conversationDuration);
                 }
@@ -119,7 +119,7 @@ public class BattleManager : MonoBehaviour
         {
             case BattleState.Start:
                 stateText.text = "战斗开始";
-                stateDisplayUI.Play("StateDisplay", 0, 0);
+                stateDisplayUI.Play("StateDisplay",0,0);
                 break;
             case BattleState.DrawPhase:
                 stateText.text = "抽取卡牌";
@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
 
     public void MoveToNextState()
     {
-        switch (_currentState)
+        switch(_currentState)
         {
             case BattleState.Start:
                 ChangeState(++_currentState);

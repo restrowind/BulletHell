@@ -322,17 +322,17 @@ public class CardManager : MonoBehaviour
         {
             if (forceDisplayHandPile)
             {
-                handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, handPileSmoothSpeed*Time.deltaTime);
+                handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, Time.deltaTime * handPileSmoothSpeed);
             }
             else
             {
-                handPileArea.position = Vector3.Lerp(handPileArea.position, hiddenHandPilePos,  handPileSmoothSpeed * Time.deltaTime);
+                handPileArea.position = Vector3.Lerp(handPileArea.position, hiddenHandPilePos, Time.deltaTime * handPileSmoothSpeed);
             }
             canPlayCard = false;
         }
         else
         {
-            handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, 0.01f* handPileSmoothSpeed);
+            handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, Time.deltaTime * handPileSmoothSpeed);
             canPlayCard = true;
         }
     }

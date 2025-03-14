@@ -27,6 +27,10 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private TextMeshProUGUI cardName;
     [SerializeField] private TextMeshProUGUI cardDescription;
 
+    private CardState _cardState=CardState.Other;
+    public bool isDiscarded = false;
+
+
     public void InitCardUI(HandPileMainUI handPileMainUI, CardInstance card,int index)
     {
         mainUI = handPileMainUI;
@@ -35,21 +39,28 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         smoothSpeed = handPileMainUI.smoothSpeed;
         cardManager=FindAnyObjectByType<CardManager>();
         PrintCard();
+        mainUI.NotifyCanPlay+=SetCardState;
     }
     // 鼠标悬停
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //Debug.Log("鼠标悬停在 Image 上");
-        mainUI.SetHoverInfo(true, _index);
-        mainUI.CalculateCardsPosAndRot();
+        if (!isDiscarded)
+        {
+            //Debug.Log("鼠标悬停在 Image 上");
+            mainUI.SetHoverInfo(true, _index);
+            mainUI.CalculateCardsPosAndRot();
+        }
     }
 
     // 鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
-        //Debug.Log("鼠标离开 Image");
-        mainUI.SetHoverInfo(false, _index);
-        mainUI.CalculateCardsPosAndRot();
+        if (!isDiscarded)
+        {
+            //Debug.Log("鼠标离开 Image");
+            mainUI.SetHoverInfo(false, _index);
+            mainUI.CalculateCardsPosAndRot();
+        }
     }
 
     // 鼠标点击
@@ -57,19 +68,58 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            SetDragging(true);
-
-            if (Input.mousePosition.y > mainUI.playCardY)
+            if (_cardState == CardState.Play)
             {
-                TryPlayCard();
+                SetDragging(true);
+
+                if (Input.mousePosition.y > mainUI.playCardY)
+                {
+                    TryPlayCard();
+                }
+                //Debug.Log("进入拖动模式：" + gameObject.name);
             }
-            //Debug.Log("进入拖动模式：" + gameObject.name);
+            else if(_cardState == CardState.Discard)
+            {
+                if (Input.mousePosition.y > mainUI.playCardY)
+                {
+                    SetDiscard(false);
+                }
+                else
+                {
+                    if (mainUI.canDiscardMore())
+                    {
+                        SetDiscard(true);
+                    }
+                    else
+                    {
+                        cardManager.SpawnATipBoard("无需更多弃牌");
+                    }
+                }
+                
+            }
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             SetDragging(false);
             //Debug.Log("取消拖动：" + gameObject.name);
 
+        }
+    }
+
+    private void SetDiscard(bool discarded)
+    {
+        isDiscarded = discarded;
+        if(isDiscarded)
+        {
+            mainUI.discardedCardsIndexs.Add(_index);
+            mainUI.SetHoverInfo(false, _index);
+            SetHover(false);
+            mainUI.CalculateCardsPosAndRot();
+        }
+        else
+        {
+            mainUI.discardedCardsIndexs.Remove(_index);
+            mainUI.CalculateCardsPosAndRot();
         }
     }
 
@@ -115,11 +165,14 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
     public void SetHover(bool hovering)
     {
-        isHovering = hovering;
-        if (isHovering)
+        if (!isDiscarded)
         {
-            targetPosition = new Vector3(targetPosition.x, hoverY, 0);
-            targetEuler = 0;
+            isHovering = hovering;
+            if (isHovering)
+            {
+                targetPosition = new Vector3(targetPosition.x, hoverY, 0);
+                targetEuler = 0;
+            }
         }
     }
 
@@ -169,14 +222,17 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private void SetDragging(bool dragging)
     {
-        isDragging = dragging;
-        if(dragging)
+        if (_cardState==CardState.Play)
         {
-            transform.SetSiblingIndex(mainUI.pileSize);
-        }
-        else
-        {
-            transform.SetSiblingIndex(_index);
+            isDragging = dragging;
+            if (dragging)
+            {
+                transform.SetSiblingIndex(mainUI.pileSize);
+            }
+            else
+            {
+                transform.SetSiblingIndex(_index);
+            }
         }
     }
 
@@ -187,5 +243,9 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardDescription.text = cardManager.GetCardByID(counterpartCardInstance.cardID).description;
     }
 
+    private void SetCardState(CardState cardState)
+    {
+        _cardState = cardState;
+    }
 
 }

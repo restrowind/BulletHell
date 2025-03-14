@@ -7,12 +7,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
-public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HandPileMainUI: MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private CardManager cardManager;
     public int pileSize;
     [SerializeField] private Vector3 pileCenterPosition;
-    [SerializeField] private float pileRadius = 100;
+    [SerializeField] private float pileRadius=100;
     public bool hoverOnCard = false;
     [SerializeField] private int currentHoverCardIndex;
 
@@ -49,7 +49,7 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public bool canDiscardMore()
     {
-        if (hasDiscardedCount < needDiscardCount)
+        if(hasDiscardedCount< needDiscardCount)
         {
             return true;
         }
@@ -83,10 +83,10 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public IEnumerator DrawCardEffect()
     {
         drawingCards = true;
-        for (int i = pileSize; i < cardManager.HandPile.Count; i++)
+        for (int i= pileSize; i < cardManager.HandPile.Count;i++)
         {
             HandCardUIInstance tmpCard = Instantiate(cardUIPfb, serveCardPoint, Quaternion.identity, transform);
-            tmpCard.InitCardUI(this, cardManager.HandPile[i], i);
+            tmpCard.InitCardUI(this,cardManager.HandPile[i],i);
             cardsUIList.Add(tmpCard);
             pileSize = cardsUIList.Count;
             //暂时放在这里
@@ -96,7 +96,7 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         drawingCards = false;
         yield break;
     }
-    public void SetHoverInfo(bool hover, int index)
+    public void SetHoverInfo(bool hover,int index)
     {
         hoverOnCard = hover;
         currentHoverCardIndex = index;
@@ -174,14 +174,14 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             {
                 foreach (int index in discardedCardsIndexs)
                 {
-                    cardsUIList[index].SetTarget(new Vector3(discardGap / 2 * ((1 - hasDiscardedCount)
+                    cardsUIList[index].SetTarget(new Vector3(discardGap / 2 * ((1 - hasDiscardedCount) 
                         + discardedCardsIndexs.IndexOf(index) * 2), 0, 0) + discardedCardsCenter, 0);
                 }
             }
             else
             {
                 float gap = discardAreaHalfWidthMax * 2 / (((float)discardedCardsIndexs.Count - 1));
-                for (int i = 0; i < discardedCardsIndexs.Count; i++)
+                for(int i=0;i< discardedCardsIndexs.Count;i++)
                 {
                     cardsUIList[discardedCardsIndexs[i]].SetTarget(new Vector3(-discardAreaHalfWidthMax + i * gap, 0, 0)
                         + discardedCardsCenter, 0);
@@ -196,25 +196,25 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
             for (int i = 0; i < pileSize; i++)
             {
-                if (discardedCardsIndexs.Contains(cardsUIList[i]._index))
+                if(discardedCardsIndexs.Contains(cardsUIList[i]._index))
                 {
                     deltaNum++;
                     continue;
                 }
                 if ((pileSize - hasDiscardedCount) % 2 == 0)
                 {
-                    euler = ((float)(pileSize - hasDiscardedCount - 1) / 2 - i + deltaNum) * deltaAngle + 90;
+                    euler = ((float)(pileSize - hasDiscardedCount - 1) / 2 - i+ deltaNum) * deltaAngle + 90;
                 }
                 else if ((pileSize - hasDiscardedCount) % 2 == 1)
                 {
-                    euler = ((float)(pileSize - hasDiscardedCount - 1) / 2 - i + deltaNum) * deltaAngle + 90;
+                    euler = ((float)(pileSize- hasDiscardedCount - 1) / 2 - i+ deltaNum) * deltaAngle + 90;
                 }
                 else
                 {
                     Debug.Log("有问题了");
                 }
 
-                float minusRadius = Mathf.Abs(i - deltaNum - (float)(pileSize - hasDiscardedCount - 1) / 2) * deltaRadius;
+                float minusRadius = Mathf.Abs(i- deltaNum - (float)(pileSize - hasDiscardedCount - 1) / 2) * deltaRadius;
 
                 basePos = new Vector3(Mathf.Cos(Mathf.Deg2Rad * euler), Mathf.Sin(Mathf.Deg2Rad * euler), 0) * (pileRadius - minusRadius) + pileCenterPosition;
 
@@ -223,16 +223,16 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 if (hoverOnCard)
                 {
                     int deltaFlag = 0;
-                    for (int j = 0; j < currentHoverCardIndex; j++)
+                    for(int j=0;j< currentHoverCardIndex;j++)
                     {
-                        if (discardedCardsIndexs.Contains(j))
+                        if(discardedCardsIndexs.Contains(j))
                         {
                             deltaFlag++;
                         }
                     }
-                    if (i != currentHoverCardIndex)
+                    if (i!= currentHoverCardIndex)
                     {
-                        hoverDeltaPos = new Vector3(1f / Mathf.Pow((i - deltaNum - currentHoverCardIndex + deltaFlag), 1) * hoverDeltaConst, 0, 0);
+                        hoverDeltaPos = new Vector3(1f / Mathf.Pow((i- deltaNum - currentHoverCardIndex+ deltaFlag), 1) * hoverDeltaConst, 0, 0);
                         cardsUIList[i].SetHover(false);
                     }
                     else
@@ -257,11 +257,11 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void Discard(HandCardUIInstance cardUIInstance)
     {
         bool flag = false;
-        for (int i = 0; i < cardsUIList.Count; i++)
+        for(int i=0;i< cardsUIList.Count;i++)
         {
-            if (cardsUIList[i] == cardUIInstance)
+            if (cardsUIList[i]== cardUIInstance)
                 flag = true;
-            if (flag)
+            if(flag)
             {
                 cardsUIList[i]._index--;
             }
@@ -308,7 +308,7 @@ public class HandPileMainUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         else
         {
-            string display = "还需选择" + (needDiscardCount - hasDiscardedCount).ToString() + "张牌丢弃";
+            string display = "还需选择" + (needDiscardCount-hasDiscardedCount).ToString()+ "张牌丢弃";
             cardManager.SpawnATipBoard(display);
         }
     }
