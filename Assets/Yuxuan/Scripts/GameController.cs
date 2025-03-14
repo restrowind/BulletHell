@@ -8,7 +8,7 @@ public interface IBattlePhaseDependent
     void SetState(BattleState newState);
 }
 
-public class GameStateManager : MonoBehaviour
+public class GameController : MonoBehaviour
 {
     private List<IBattlePhaseDependent> phaseDependentObjects = new List<IBattlePhaseDependent>();
 
