@@ -18,6 +18,7 @@ public enum BattleState
 public class BattleManager : MonoBehaviour
 {
     private BattleState _currentState;
+
     [SerializeField] private CardManager _cardManager;
 
     public int fistDrawCardCount = 2;
@@ -128,6 +129,7 @@ public class BattleManager : MonoBehaviour
             case BattleState.BulletPhase:
                 stateText.text = "敌人回合";
                 stateDisplayUI.Play("StateDisplay", 0, 0);
+
                 break;
             case BattleState.PlayCardPhase:
                 stateText.text = "你的回合";

@@ -38,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour
             if (trackTime <= 0)
             {
                transform .position = Vector2.MoveTowards(transform.position, target.position, 0.1f);
-                Debug.Log("moveToTarget");
+                //Debug.Log("moveToTarget");
                 isMove = true;
             }
             
@@ -65,7 +65,7 @@ public class BulletBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
             collision.GetComponent<PlayerMovement>().hp -= damage;
-            Debug.Log("Take Damage");
+            //Debug.Log("Take Damage");
         }
     }
 }
