@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public Image img;
     public float hp;
     public Text hpText;
+    private bool _isStay;
+    private GameObject currentTrigger;
+
+    private Animator player_animator;
 
     // 对象池
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
@@ -34,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
+        player_animator = GetComponent<Animator>();
 
         // 初始化对象池
         for (int i = 0; i < ghostPoolSize; i++)
@@ -46,12 +51,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        hpText.text = "当前生命值："+ hp.ToString();
+        hpText.text = "当前生命值：" + hp.ToString();
+
         if (!isDashing)
         {
             // 获取常规移动输入
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+            UpdateAnimation();
+
         }
+
 
         // 检测冲刺输入
         if (Input.GetKeyDown(KeyCode.Space) && canDash && moveInput != Vector2.zero)
@@ -60,12 +70,51 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void UpdateAnimation()
+    {
+        int direction = 0; // Idle
+
+        if (moveInput.y > 0)
+            direction = 2; // 向上
+        else if (moveInput.y < 0)
+            direction = 1; // 向下
+        else if (moveInput.x > 0)
+            direction = 4; // 向右
+        else if (moveInput.x < 0)
+            direction = 3; // 向左
+
+        player_animator.SetInteger("MoveDirection", direction);
+    }
+
     void FixedUpdate()
     {
         if (!isDashing)
         {
             // 常规移动
             rb.velocity = moveInput * moveSpeed;
+        }
+
+        if (_isStay)
+        {
+            timer -=Time.deltaTime;
+            img.fillAmount = timer / 5;
+            if (timer <= 0)
+            {
+                StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
+                if (currentTrigger.name.Equals("红"))
+                {
+                    Collection.red++;
+                }
+                else if (currentTrigger.name.Equals("绿"))
+                {
+                    Collection.green++;
+                }
+                else if (currentTrigger.name.Equals("蓝"))
+                {
+                    Collection.blue++;
+                }
+                timer = 5;
+            }
         }
     }
 
@@ -155,36 +204,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+       
+       
         if (collision.CompareTag("收集元素"))
         {
-            timer -=Time.deltaTime;
-            img.fillAmount = timer / 5;
-            if (timer <= 0)
-            {
-                StartCoroutine(BlinkAndHide(collision.transform.GetChild(0).gameObject));
-                if (collision.name.Equals("红"))
-                {
-                    Collection.red++;
-                }
-                else if (collision.name.Equals("绿"))
-                {
-                    Collection.green++;
-                }
-                else if (collision.name.Equals("蓝"))
-                {
-                    Collection.blue++;
-                }
-                timer = 5;
-            }
+            _isStay = true;
+            currentTrigger = collision.gameObject;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("收集元素"))
+        /*if (collision.CompareTag("收集元素"))
         {
             timer = 5;
-        }
+            _isStay =false;
+        }*/
     }
     
     IEnumerator BlinkAndHide(GameObject ghost)

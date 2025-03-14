@@ -26,6 +26,6 @@ public class BossCountDown : MonoBehaviour
     {
         timer = 30;
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ReStartBtn.SetActive(false);
     }
 }
