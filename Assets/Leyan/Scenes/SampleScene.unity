@@ -1216,7 +1216,7 @@ MonoBehaviour:
   testDrawCard: 3
   handPileArea: {fileID: 1654991666}
   hiddenHandPileY: 0
-  handPileSmoothSpeed: 3
+  handPileSmoothSpeed: 8
   forceDisplayHandPile: 0
   tipBoardPfb: {fileID: 8700058401683820085, guid: 3f224161b7ccf564b9099001cc41c7a6, type: 3}
   cardSystemCanvas: {fileID: 256733920}

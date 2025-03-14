@@ -322,11 +322,11 @@ public class CardManager : MonoBehaviour
         {
             if (forceDisplayHandPile)
             {
-                handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, 0.01f * handPileSmoothSpeed);
+                handPileArea.position = Vector3.Lerp(handPileArea.position, initHandPilePos, handPileSmoothSpeed*Time.deltaTime);
             }
             else
             {
-                handPileArea.position = Vector3.Lerp(handPileArea.position, hiddenHandPilePos, 0.01f * handPileSmoothSpeed);
+                handPileArea.position = Vector3.Lerp(handPileArea.position, hiddenHandPilePos,  handPileSmoothSpeed * Time.deltaTime);
             }
             canPlayCard = false;
         }
