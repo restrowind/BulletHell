@@ -65,9 +65,34 @@ crashlytics-build.properties
 
 # ========== 🚀 临时生成的 Android 资源（避免提交 StreamingAssets 相关文件） ==========
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-!/[Aa]ssets/[Ss]treamingAssets/aa/*.meta # ✅ 允许 .meta 文件被 Git 跟踪
+!/[Aa]ssets/[Ss]treamingAssets/aa/*.meta # ✅ 确保 .meta 文件被 Git 跟踪
+!/[Aa]ssets/[Ss]treamingAssets/aa/.keep # ✅ 允许 Git 跟踪空文件夹
 
 # ========== ✅ 确保 Unity 场景文件不会被忽略 ==========
+!/[Aa]ssets/
 !/[Aa]ssets/Scenes/
 !/[Aa]ssets/Scenes/*.unity
 !/[Aa]ssets/Scenes/*.unity.meta
+
+# ========== ✅ 确保 `Assets/` 下的所有子文件夹都不会被忽略 ==========
+!/[Aa]ssets/**/
+!/[Aa]ssets/**/*.meta
+!/[Aa]ssets/**/*.prefab
+!/[Aa]ssets/**/*.anim
+!/[Aa]ssets/**/*.controller
+!/[Aa]ssets/**/*.mat
+!/[Aa]ssets/**/*.shader
+!/[Aa]ssets/**/*.png
+!/[Aa]ssets/**/*.jpg
+!/[Aa]ssets/**/*.tga
+!/[Aa]ssets/**/*.exr
+!/[Aa]ssets/**/*.fbx
+!/[Aa]ssets/**/*.obj
+!/[Aa]ssets/**/*.ttf
+!/[Aa]ssets/**/*.otf
+!/[Aa]ssets/**/*.wav
+!/[Aa]ssets/**/*.mp3
+!/[Aa]ssets/**/*.ogg
+
+# ========== ✅ 确保 Git 允许跟踪 Unity 需要的 `.meta` 文件 ==========
+!*.meta
