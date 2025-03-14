@@ -328,7 +328,7 @@ MonoBehaviour:
       bullet: {fileID: 11400000, guid: edd031284d544794daa801fe0abca9af, type: 2}
       spawnTime: 0
       destroyTime: 5
-      spawnPosition: {x: 0, y: 0, z: 0}
+      spawnPosition: {x: 10, y: 0, z: 0}
       rotation: 0
     - prefab: {fileID: 2011706068}
       bullet: {fileID: 11400000, guid: 885e45a0f90bc1544a3d53955c28f0cf, type: 2}
