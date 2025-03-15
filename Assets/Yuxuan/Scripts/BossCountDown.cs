@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BossCountDown : MonoBehaviour, IBattlePhaseDependent
+public class BossCountDown : MonoBehaviour
 {
     public float timer;
     public Text countDownText;
@@ -15,14 +15,15 @@ public class BossCountDown : MonoBehaviour, IBattlePhaseDependent
 
     public void Update()
     {
-        if (_currentState != BattleState.BulletPhase) return;
+        if (BattleManager.Instance._currentState != BattleState.BulletPhase) return;
 
         timer -= Time.deltaTime;
         countDownText.text = timer.ToString("0");
         if (timer <= 0)
         {
-            Time.timeScale = 0;
-            ReStartBtn.SetActive(true);
+            //Time.timeScale = 0;
+            //ReStartBtn.SetActive(true);
+            BattleManager.Instance.MoveToNextState();
         }
     }
 
@@ -34,8 +35,4 @@ public class BossCountDown : MonoBehaviour, IBattlePhaseDependent
         roundCount++; // 每次重新开始增加回合数
     }
 
-    public void SetState(BattleState newState)
-    {
-        _currentState = newState;
-    }
 }

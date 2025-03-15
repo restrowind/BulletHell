@@ -10,6 +10,8 @@ public interface IBattlePhaseDependent
 
 public class GameController : MonoBehaviour
 {
+
+    public BossCountDown _bossCountDown;
     private List<IBattlePhaseDependent> phaseDependentObjects = new List<IBattlePhaseDependent>();
 
     void Awake()

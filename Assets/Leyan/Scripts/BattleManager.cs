@@ -17,7 +17,7 @@ public enum BattleState
 
 public class BattleManager : MonoBehaviour
 {
-    private BattleState _currentState;
+    public BattleState _currentState;
 
     [SerializeField] private CardManager _cardManager;
 
@@ -115,7 +115,15 @@ public class BattleManager : MonoBehaviour
             case BattleState.BulletPhase:
                 _cardManager.SetCardState(CardState.Bullet);
                 //Invoke("MoveToNextState", testBulletDuration);
-                gameController.SetGameState(BattleState.BulletPhase);
+                if (roundCount == 0)
+                {
+                    gameController.SetGameState(BattleState.BulletPhase);
+                }
+                else
+                {
+                    gameController.SetGameState(BattleState.BulletPhase);
+                    gameController._bossCountDown.ReStart();
+                }
                 break;
             case BattleState.PlayCardPhase:
                 _cardManager.SetCardState(CardState.Play);
