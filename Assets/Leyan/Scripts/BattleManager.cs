@@ -39,9 +39,27 @@ public class BattleManager : MonoBehaviour
 
     private int roundCount = 0;
 
+    public static BattleManager Instance { get; private set; }
+
     void Start()
     {
         Invoke("StartToStart", 0.8f);
+    }
+
+    private void Awake()
+    {
+        // È·±£µ¥Àý
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
     }
 
     void Update()
