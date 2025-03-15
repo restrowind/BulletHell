@@ -3244,6 +3244,7 @@ MonoBehaviour:
   stateText: {fileID: 454705697}
   stateDisplayUI: {fileID: 902576842}
   StopPlayButton: {fileID: 1687356060}
+  gameController: {fileID: 646307999}
 --- !u!4 &1325542218
 Transform:
   m_ObjectHideFlags: 0
