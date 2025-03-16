@@ -84,7 +84,7 @@ public class PlayerCharacter : MonoBehaviour
         {
 
 
-            hpText.text = "当前生命值：" + hp.ToString();
+            hpText.text = "HP: " + hp.ToString();
 
             if (!isDashing)
             {
@@ -97,7 +97,7 @@ public class PlayerCharacter : MonoBehaviour
 
 
             // 检测冲刺输入
-            if (Input.GetKeyDown(KeyCode.Space) && canDash && moveInput != Vector2.zero)
+            if (Input.GetKeyDown(KeyCode.Space) && canDash && (moveInput.x != 0 || moveInput.y != 0))
             {
                 StartCoroutine(Dash());
             }
@@ -135,18 +135,22 @@ public class PlayerCharacter : MonoBehaviour
                 img.fillAmount = timer / currentCollectTime;
                 if (timer <= 0)
                 {
-                    StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
-                    if (currentTrigger.name.Equals("红"))
+                    if(currentTrigger.name != "Blank")
                     {
-                        Collection.red++;
+                     StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
                     }
-                    else if (currentTrigger.name.Equals("绿"))
+
+                    if (currentTrigger.name.Equals("Lumen"))
                     {
-                        Collection.green++;
+                        Collection.lumen++;
                     }
-                    else if (currentTrigger.name.Equals("蓝"))
+                    else if (currentTrigger.name.Equals("Vitality"))
                     {
-                        Collection.blue++;
+                        Collection.vitality++;
+                    }
+                    else if (currentTrigger.name.Equals("Aqua"))
+                    {
+                        Collection.aqua++;
                     }
                     timer = currentCollectTime;
                 }
@@ -239,13 +243,12 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision)
-    {
-       
-       
+    {             
         if (collision.CompareTag("收集元素"))
         {
             _isStay = true;
             currentTrigger = collision.gameObject;
+            Debug.Log("111");
         }
     }
 
@@ -264,7 +267,7 @@ public class PlayerCharacter : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             ghost.SetActive(!ghost.activeInHierarchy); 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         // 确保物体最终隐藏
@@ -280,7 +283,7 @@ public class PlayerCharacter : MonoBehaviour
             rb.velocity = Vector2.zero;
             moveInput = Vector2.zero;
             UpdateAnimation();
-            img.fillAmount = 0;
+            img.fillAmount = 1;
         }
         else
         {

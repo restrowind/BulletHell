@@ -74,6 +74,11 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
         newObj.transform.position = config.spawnPosition;
         newObj.transform.localEulerAngles = new Vector3(0, 0, config.rotation);
         Destroy(newObj, config.destroyTime);
+
+        if(hasSpawnedThisPhase == false)
+        {
+            Destroy(newObj);
+        }
     }
 
     public void SetState(BattleState newState)

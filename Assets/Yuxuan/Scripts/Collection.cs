@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class Collection : MonoBehaviour
 {
-   public static int blue;
-   public static int green; 
-   public static int red;
-   
-   public Text blueText;
-   public Text greenText;
-   public Text redText;
+   public static int aqua;
+   public static int vitality; 
+   public static int lumen;
+
+    public Text aquaText;
+   public Text vitalityText;
+   public Text lumenText;
 
    void Update()
    {
-      blueText.text = blue.ToString();
-      greenText.text = green.ToString();
-      redText.text = red.ToString();
+      aquaText.text = aqua.ToString();
+      vitalityText.text = vitality.ToString();
+      lumenText.text = lumen.ToString();
    }
 }

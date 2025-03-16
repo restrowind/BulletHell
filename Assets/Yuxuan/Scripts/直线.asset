@@ -18,7 +18,6 @@ MonoBehaviour:
   AngularVelocity: 0
   AngularAcceleration: 0
   MaxVelocity: 2.1474836e+9
-  InitRotation: -90
   SenderAngularVelocity: 0
   SenderMaxAngularVelocity: 2.1474836e+9
   SenderAccleration: 0
@@ -26,6 +25,6 @@ MonoBehaviour:
   LineAngle: 0
   SendInterval: 0.1
   Damage: 1
-  isTrack: 1
+  isTrack: 0
   trackTime: 1
   Prefabs: {fileID: 5650471220772229291, guid: f4ed78463042e8b49a828bfd87deefba, type: 3}
