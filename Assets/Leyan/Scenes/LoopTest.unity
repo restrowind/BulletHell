@@ -2775,6 +2775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718220842}
   - component: {fileID: 718220841}
+  - component: {fileID: 718220843}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -2849,6 +2850,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &718220843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718220840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77514c21149bb9d4385d07d32fa510c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  bossCountDown: {fileID: 866014664}
+  HPBar: {fileID: 1490843643}
+  fillSmoothSpeed: 5
 --- !u!1 &728773963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,10 +3209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e0e5f3a6fd3934e897323c30f9aa4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 30
   countDownText: {fileID: 1193460274}
   ReStartBtn: {fileID: 106137433}
   roundCount: 0
+  baseBulletStateTimeLength: 10
+  lengthExtraRate: 1
 --- !u!114 &866014665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3946,6 +3964,7 @@ MonoBehaviour:
   tipBoardPfb: {fileID: 8700058401683820085, guid: 3f224161b7ccf564b9099001cc41c7a6, type: 3}
   cardSystemCanvas: {fileID: 256733920}
   discardPage: {fileID: 1706022090}
+  _boss: {fileID: 718220843}
 --- !u!4 &1242822021
 Transform:
   m_ObjectHideFlags: 0
@@ -4234,6 +4253,7 @@ MonoBehaviour:
   stateDisplayUI: {fileID: 902576842}
   StopPlayButton: {fileID: 1687356060}
   gameController: {fileID: 866014665}
+  player: {fileID: 2028919080}
 --- !u!4 &1325542218
 Transform:
   m_ObjectHideFlags: 0
@@ -6401,7 +6421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -811.6, y: -460.1}
+  m_AnchoredPosition: {x: -934, y: -341}
   m_SizeDelta: {x: 465.25, y: 191.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983797538
@@ -6647,6 +6667,8 @@ MonoBehaviour:
   img: {fileID: 1801572086}
   hp: 1000000
   hpText: {fileID: 323822549}
+  baseCollectTime: 5
+  collectEnhance: 2
 --- !u!212 &2028919081
 SpriteRenderer:
   m_ObjectHideFlags: 0

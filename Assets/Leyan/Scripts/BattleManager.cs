@@ -36,6 +36,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Animator StopPlayButton;
 
     [SerializeField] private GameController gameController;
+    [SerializeField] private PlayerCharacter player;
 
     private int roundCount = 0;
 
@@ -105,6 +106,7 @@ public class BattleManager : MonoBehaviour
             case BattleState.Start:
                 BattleStartUIEff();
                 _cardManager.DrawCards(fistDrawCardCount);
+                player.SetPlayerPause(true);
                 Invoke("MoveToNextState", startDuration);
                 break;
             case BattleState.DrawPhase:
@@ -115,6 +117,7 @@ public class BattleManager : MonoBehaviour
             case BattleState.BulletPhase:
                 _cardManager.SetCardState(CardState.Bullet);
                 //Invoke("MoveToNextState", testBulletDuration);
+                player.SetPlayerPause(false);
                 if (roundCount == 0)
                 {
                     gameController.SetGameState(BattleState.BulletPhase);
@@ -127,6 +130,7 @@ public class BattleManager : MonoBehaviour
                 break;
             case BattleState.PlayCardPhase:
                 _cardManager.SetCardState(CardState.Play);
+                player.SetPlayerPause(true);
                 StopPlayButton.Play("StopPlayButtonAppear");
                 break;
             case BattleState.DiscardPhase:

@@ -67,7 +67,7 @@ public class CardManager : MonoBehaviour
 
     public int testDrawCard = 4;
 
-    private CardState currentCardState=CardState.Other;
+    public CardState currentCardState=CardState.Other;
 
     [SerializeField] private Transform handPileArea;
     private Vector3 initHandPilePos;
@@ -83,6 +83,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject tipBoardPfb;
     [SerializeField] private Transform cardSystemCanvas;
     [SerializeField] private Animator discardPage;
+
+    [SerializeField] private Boss _boss;
 
 
     private void Awake()
@@ -187,18 +189,18 @@ public class CardManager : MonoBehaviour
         card1.InitCard(1);
         card2.InitCard(1);
         card3.InitCard(1);
-        card4.InitCard(2);
-        card5.InitCard(2);
+        card4.InitCard(1);
+        card5.InitCard(1);
         card6.InitCard(2);
         card7.InitCard(2);
-        card8.InitCard(101);
-        card9.InitCard(101);
-        card10.InitCard(101);
-        card11.InitCard(2);
-        card12.InitCard(2);
-        card13.InitCard(101);
-        card14.InitCard(101);
-        card15.InitCard(101);
+        card8.InitCard(2);
+        card9.InitCard(2);
+        card10.InitCard(1);
+        card11.InitCard(1);
+        card12.InitCard(1);
+        card13.InitCard(2);
+        card14.InitCard(2);
+        card15.InitCard(2);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -236,6 +238,8 @@ public class CardManager : MonoBehaviour
             discardPile.Add(card.counterpartCardInstance);
 
             //执行卡牌效果
+            CardInstance executedCard = card.counterpartCardInstance;
+            StartCoroutine(ExecuteCardEffect(executedCard));
             return true;
         }
         else
@@ -342,6 +346,23 @@ public class CardManager : MonoBehaviour
         Transform tipBoard= Instantiate(tipBoardPfb, cardSystemCanvas).transform;
         tipBoard.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
         Destroy(tipBoard.gameObject,1.5f);
+    }
+
+
+    IEnumerator ExecuteCardEffect(CardInstance executedCard)
+    {
+        //GetCardByID(executedCard.cardID).ExecuteEffects(battleManager.gameObject);
+        yield return null;
+        switch (executedCard.cardID)
+        {
+            case 1:
+                _boss.DealDamage(30);
+                break;
+            case 2:
+                DrawCards(2);
+                break;
+        }
+        yield break;
     }
 
 }

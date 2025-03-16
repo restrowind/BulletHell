@@ -40,6 +40,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardManager=FindAnyObjectByType<CardManager>();
         PrintCard();
         mainUI.NotifyCanPlay+=SetCardState;
+        _cardState = cardManager.currentCardState;
     }
     //  Û±Í–¸Õ£
     public void OnPointerEnter(PointerEventData eventData)

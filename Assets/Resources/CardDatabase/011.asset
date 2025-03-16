@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3408c6d03e0e2bb4badd6ac3983bde15, type: 3}
+  m_Name: 011
+  m_EditorClassIdentifier: 
+  cardID: 11
+  cardName: "\u5149\u5408\u5FAA\u73AF "
+  cardArtwork: {fileID: 21300000, guid: 1e0f2b45945c8254abd59f40d783c11f, type: 3}
+  description: "\u56DE\u590D 20 \u70B9\u751F\u547D\u503C (\u751F\u7269\u5149\u80FD\u4FEE\u590D\u8231\u6FC0\u6D3B\uFF0C\u5149\u5B50\u6D41\u6E17\u900F\u7EC4\u7EC7\u5C42\uFF0C\u7EC6\u80DE\u589E\u6B96\u901F\u7387\u63D0\u5347\uFF0C\u635F\u4F24\u7EC4\u7EC7\u4FEE\u590D\u52A0\u901F\uFF0C\u751F\u547D\u6D3B\u52A8\u6062\u590D\u81F3\u7A33\u5B9A\u72B6\u6001)"
+  cost:
+    fire: 3
+    water: 1
+    earth: 0
+  cardType: 0
+  rarity: 0
+  effects: []

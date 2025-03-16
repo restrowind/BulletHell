@@ -13,19 +13,13 @@ MonoBehaviour:
   m_Name: 002
   m_EditorClassIdentifier: 
   cardID: 2
-  cardName: "\u5927\u56DE\u590D"
+  cardName: "\u6DF1\u6D77\u8109\u51B2 "
   cardArtwork: {fileID: 21300000, guid: 1f21190ca9d1e8540b2a3a2e46002685, type: 3}
-  description: "\u56DE\u590D\u6700\u5927\u751F\u547D\u503C\u768410%"
+  description: "\u62BD\u53D6\u4E24\u5F20\u5361\u724C (\u795E\u7ECF\u6F6E\u6C50\u89E3\u6790\u5668\u8FDE\u63A5\u91CF\u5B50\u6D41\u4F53\u7F51\u7EDC\uFF0C\u6218\u573A\u6001\u52BF\u6D41\u5165\u6570\u636E\u94FE\uFF0C\u6D0B\u6D41\u9884\u6D4B\u7CFB\u7EDF\u89E3\u6790\u53EF\u80FD\u7684\u884C\u52A8\u8DEF\u5F84\uFF0C\u6218\u672F\u6307\u4EE4\u968F\u4E4B\u66F4\u65B0)"
   cost:
     fire: 0
     water: 0
     earth: 3
   cardType: 1
   rarity: 0
-  effects:
-  - effectName: RestorePercentage
-    parameters:
-    - type: 2
-      stringValue: 
-      intValue: 0
-      floatValue: 0.1
+  effects: []

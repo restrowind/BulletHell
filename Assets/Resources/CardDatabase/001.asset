@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: 001
   m_EditorClassIdentifier: 
   cardID: 1
-  cardName: "\u5C0F\u56DE\u590D"
+  cardName: "\u6F6E\u6C50\u70AE\u51FB "
   cardArtwork: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
-  description: "\u56DE\u590D20\u70B9\u751F\u547D\u503C"
+  description: "\u9020\u6210 30 \u70B9\u4F24\u5BB3(\u6D41\u4F53\u52A0\u901F\u5668\u542F\u52A8\uFF0C\u9AD8\u9891\u632F\u8361\u6FC0\u6D3B\u6D0B\u6D41\u52A8\u80FD\uFF0C\u8D85\u538B\u6C34\u5203\u7A7F\u900F\u7A7A\u6C14\uFF0C\u76EE\u6807\u533A\u57DF\u6380\u8D77\u9707\u8361\u6CE2\uFF0C\u6F6E\u6C50\u7684\u529B\u91CF\u7CBE\u51C6\u6253\u51FB)"
   cost:
-    fire: 0
-    water: 1
-    earth: 3
+    aqua: 0
+    lumen: 0
+    vitality: 0
   cardType: 1
   rarity: 0
   effects:
-  - effectName: RestoreValue
+  - effectName: DealDamage
     parameters:
-    - type: 1
+    - type: 2
       stringValue: 
-      intValue: 20
-      floatValue: 0
+      intValue: 0
+      floatValue: 30

@@ -64,7 +64,7 @@ public class BulletBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            collision.GetComponent<PlayerMovement>().hp -= damage;
+            collision.GetComponent<PlayerCharacter>().hp -= damage;
             //Debug.Log("Take Damage");
         }
     }
