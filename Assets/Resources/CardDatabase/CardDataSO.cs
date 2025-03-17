@@ -53,22 +53,22 @@ public enum Rarity
 [System.Serializable] // 让 Unity Inspector 可以显示
 public struct ElementCost
 {
-    public int fire;  // 火元素费用
-    public int water; // 水元素费用
-    public int earth; // 土元素费用
+    public int aqua;// 火元素费用
+    public int lumen; // 水元素费用
+    public int vitality; // 土元素费用
 
     // **构造方法**
-    public ElementCost(int fire, int water, int earth)
+    public ElementCost(int aqua, int lumen, int vitality)
     {
-        this.fire = fire;
-        this.water = water;
-        this.earth = earth;
+        this.aqua = aqua;
+        this.lumen = lumen;
+        this.vitality = vitality;
     }
 
     // **返回费用字符串**
     public override string ToString()
     {
-        return $"{fire} {water} {earth}";
+        return $"{aqua} {lumen} {vitality}";
     }
 }
 

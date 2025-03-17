@@ -85,6 +85,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Animator discardPage;
 
     [SerializeField] private Boss _boss;
+    [SerializeField] private PlayerCharacter _player;
+
+    [SerializeField] private ResourceCollection _collection;
 
 
     private void Awake()
@@ -193,14 +196,14 @@ public class CardManager : MonoBehaviour
         card5.InitCard(1);
         card6.InitCard(2);
         card7.InitCard(2);
-        card8.InitCard(2);
-        card9.InitCard(2);
-        card10.InitCard(1);
-        card11.InitCard(1);
-        card12.InitCard(1);
-        card13.InitCard(2);
-        card14.InitCard(2);
-        card15.InitCard(2);
+        card8.InitCard(20);
+        card9.InitCard(20);
+        card10.InitCard(11);
+        card11.InitCard(11);
+        card12.InitCard(11);
+        card13.InitCard(18);
+        card14.InitCard(18);
+        card15.InitCard(18);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -232,7 +235,7 @@ public class CardManager : MonoBehaviour
     public bool TryPlayCard(HandCardUIInstance card)
     {
         //判定是否能够打出
-        if (true)
+        if (TryChargeCollection(card.counterpartCardInstance))
         {
             handPile.Remove(card.counterpartCardInstance);
             discardPile.Add(card.counterpartCardInstance);
@@ -244,11 +247,31 @@ public class CardManager : MonoBehaviour
         }
         else
         {
+            SpawnATipBoard("费用不足");
             return false;
         }
 
 
     }
+
+    private bool TryChargeCollection(CardInstance card)
+    {
+        CardDataSO cardData = GetCardByID(card.cardID);
+        if (ResourceCollection.aqua>= cardData.cost.aqua
+            && ResourceCollection.lumen >= cardData.cost.lumen
+            && ResourceCollection.vitality >= cardData.cost.vitality)
+        {
+            ResourceCollection.aqua -= cardData.cost.aqua;
+            ResourceCollection.lumen -= cardData.cost.lumen;
+            ResourceCollection.vitality -= cardData.cost.vitality;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void LoadCards()
     {
         cardDictionary.Clear();
@@ -360,6 +383,16 @@ public class CardManager : MonoBehaviour
                 break;
             case 2:
                 DrawCards(2);
+                break;
+            case 11:
+                _player.HealByAbs(20);
+                break;
+            case 18:
+                _player.HealByWoundPercentage(0.5f);
+                break;
+            case 20:
+                _player.HealByAbs(10f * ResourceCollection.lumen);
+                ResourceCollection.lumen = 0;
                 break;
         }
         yield break;

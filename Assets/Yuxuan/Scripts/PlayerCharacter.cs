@@ -25,7 +25,13 @@ public class PlayerCharacter : MonoBehaviour
     private SpriteRenderer playerSprite;
     public float timer;
     public Image img;
-    public float hp;
+
+
+    public float currentHP;
+    [SerializeField] float maxHP;
+
+
+
     public Text hpText;
     private bool _isStay;
     private GameObject currentTrigger;
@@ -37,7 +43,7 @@ public class PlayerCharacter : MonoBehaviour
 
     // 阶段切换
     private BattleState _currentState;
-    private bool playerCharacterPause = true;
+    public bool playerCharacterPause = true;
 
 
     //采集相关
@@ -51,6 +57,8 @@ public class PlayerCharacter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         player_animator = GetComponent<Animator>();
+        currentHP = maxHP;
+        UpdateHPUI();
 
         // 初始化对象池
         for (int i = 0; i < ghostPoolSize; i++)
@@ -84,7 +92,7 @@ public class PlayerCharacter : MonoBehaviour
         {
 
 
-            hpText.text = "HP: " + hp.ToString();
+            UpdateHPUI();
 
             if (!isDashing)
             {
@@ -102,6 +110,11 @@ public class PlayerCharacter : MonoBehaviour
                 StartCoroutine(Dash());
             }
         }
+    }
+
+    private void UpdateHPUI()
+    {
+        hpText.text = "HP: " + currentHP.ToString();
     }
 
     void UpdateAnimation()
@@ -142,15 +155,15 @@ public class PlayerCharacter : MonoBehaviour
 
                     if (currentTrigger.name.Equals("Lumen"))
                     {
-                        Collection.lumen++;
+                        ResourceCollection.lumen++;
                     }
                     else if (currentTrigger.name.Equals("Vitality"))
                     {
-                        Collection.vitality++;
+                        ResourceCollection.vitality++;
                     }
                     else if (currentTrigger.name.Equals("Aqua"))
                     {
-                        Collection.aqua++;
+                        ResourceCollection.aqua++;
                     }
                     timer = currentCollectTime;
                 }
@@ -289,6 +302,23 @@ public class PlayerCharacter : MonoBehaviour
         {
             playerCharacterPause = false;
         }
+    }
+
+    public void HealByAbs(float amount)
+    {
+        currentHP=Mathf.Min(currentHP+amount, maxHP);
+        UpdateHPUI();
+    }
+
+    public void HealByPercentage(float percentage)
+    {
+        currentHP = Mathf.Min(currentHP + maxHP* percentage, maxHP);
+        UpdateHPUI();
+    }
+    public void HealByWoundPercentage(float percentage)
+    {
+        currentHP = currentHP + (maxHP - currentHP) * percentage;
+        UpdateHPUI();
     }
 
 }
