@@ -242,7 +242,45 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardArtwork.sprite= cardManager.GetCardByID(counterpartCardInstance.cardID).cardArtwork;
         cardName.text= cardManager.GetCardByID(counterpartCardInstance.cardID).cardName;
         cardDescription.text = cardManager.GetCardByID(counterpartCardInstance.cardID).description;
+
+        PrintCardCost();
+
     }
+
+    [SerializeField] private Transform pivot;
+    [SerializeField] private float interval;
+    [SerializeField] private GameObject cosUnitPfb;
+    private void PrintCardCost()
+    {
+        int flag = 0;
+        CardDataSO cardData= cardManager.GetCardByID(counterpartCardInstance.cardID);
+        int[] costList =new int[3];
+        costList[0] = cardData.cost.aqua;
+        costList[1] = cardData.cost.lumen;
+        costList[2] = cardData.cost.vitality;
+        for(int i=0;i< cardData.cost.aqua;i++)
+        {
+            CostUnit unit = Instantiate(cosUnitPfb, transform).GetComponent<CostUnit>();
+            unit.OnInit(CostUnit.CostType.Aqua, pivot.position + Vector3.right * flag * interval);
+            flag++;
+        }
+        for (int i = 0; i < cardData.cost.lumen; i++)
+        {
+            CostUnit unit = Instantiate(cosUnitPfb, transform).GetComponent<CostUnit>();
+            unit.OnInit(CostUnit.CostType.Lumen, pivot.position + Vector3.right * flag * interval);
+            flag++;
+        }
+        for (int i = 0; i < cardData.cost.vitality; i++)
+        {
+            CostUnit unit = Instantiate(cosUnitPfb, transform).GetComponent<CostUnit>();
+            unit.OnInit(CostUnit.CostType.Vitality, pivot.position + Vector3.right * flag * interval);
+            flag++;
+        }
+
+    }
+
+
+
 
     private void SetCardState(CardState cardState)
     {

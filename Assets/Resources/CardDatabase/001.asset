@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 001
   m_EditorClassIdentifier: 
   cardID: 1
-  cardName: 'Tidal Strike '
+  cardName: 'Tidal <br>            Strike '
   cardArtwork: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
   description: 'Deal 30 damage '
   cost:
