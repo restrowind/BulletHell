@@ -84,11 +84,28 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Transform cardSystemCanvas;
     [SerializeField] private Animator discardPage;
 
-    [SerializeField] private Boss _boss;
-    [SerializeField] private PlayerCharacter _player;
+    public Boss _boss;
+    public PlayerCharacter _player;
 
     [SerializeField] private ResourceCollection _collection;
 
+    private int usedAqua, usedLumen, usedVitality;
+
+    public List<BuffIDRoundsPair> roundBuffList= new List<BuffIDRoundsPair>();
+
+    [Serializable]
+    public struct BuffIDRoundsPair
+    {
+        public BuffIDRoundsPair(int id,int rounds,Action stop)
+        {
+            buffID = id;
+            remainRounds= rounds;
+            stopAction = stop;
+        }
+        public int buffID;
+        public int remainRounds;
+        public Action stopAction;
+    }
 
     private void Awake()
     {
@@ -194,16 +211,16 @@ public class CardManager : MonoBehaviour
         card3.InitCard(1);
         card4.InitCard(1);
         card5.InitCard(1);
-        card6.InitCard(2);
-        card7.InitCard(2);
-        card8.InitCard(20);
-        card9.InitCard(20);
-        card10.InitCard(11);
-        card11.InitCard(11);
-        card12.InitCard(11);
-        card13.InitCard(18);
-        card14.InitCard(18);
-        card15.InitCard(18);
+        card6.InitCard(1);
+        card7.InitCard(1);
+        card8.InitCard(1);
+        card9.InitCard(1);
+        card10.InitCard(19);
+        card11.InitCard(19);
+        card12.InitCard(19);
+        card13.InitCard(19);
+        card14.InitCard(19);
+        card15.InitCard(19);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -264,6 +281,10 @@ public class CardManager : MonoBehaviour
             ResourceCollection.aqua -= cardData.cost.aqua;
             ResourceCollection.lumen -= cardData.cost.lumen;
             ResourceCollection.vitality -= cardData.cost.vitality;
+
+            usedAqua += cardData.cost.aqua;
+            usedLumen += cardData.cost.lumen;
+            usedVitality += cardData.cost.vitality;
             return true;
         }
         else
@@ -384,18 +405,88 @@ public class CardManager : MonoBehaviour
             case 2:
                 DrawCards(2);
                 break;
+            case 3:
+                LoadARoundsBuff(()=> {
+                    _boss.bossCountDown.MultipleLengthReduceRate(0.8f);
+                    _player.MultipleCollectEnhance(1.25f);
+                }, () => {
+                    _boss.bossCountDown.MultipleLengthReduceRate(1.25f); 
+                    _player.MultipleCollectEnhance(0.8f); 
+                },1,1);
+                break;
+            case 6:
+                LoadARoundsBuff(() => {
+                    _player.MultiplaeInvincibleTime(2f);
+                }, () => {
+                    _player.MultiplaeInvincibleTime(0.5f);
+                }, 2, 4);
+                break;
+            case 7:
+                _boss.DealDamage(10f*usedAqua);
+                break;
+            case 8:
+                LoadARoundsBuff(() => {
+                    _boss.MultiplaDamageRate(2f);
+                }, () => {
+                    _boss.MultiplaDamageRate(0.5f);
+                }, 2, 1);
+                break;
+            case 10:
+                _boss.DealDamage(10f * ResourceCollection.aqua);
+                usedAqua += ResourceCollection.aqua;
+                ResourceCollection.aqua = 0;
+                break;
             case 11:
                 _player.HealByAbs(20);
                 break;
             case 18:
                 _player.HealByWoundPercentage(0.5f);
                 break;
+            case 19:
+                LoadARoundsBuff(() => {
+                    _player.MultipleTakeDamage(2f);
+                    _player.MultipleCollectEnhance(2f);
+                }, () => {
+                    _player.MultipleTakeDamage(0.5f);
+                    _player.MultipleCollectEnhance(0.5f);
+                }, 3, 1);
+                break;
             case 20:
                 _player.HealByAbs(10f * ResourceCollection.lumen);
+                usedLumen += ResourceCollection.lumen;
                 ResourceCollection.lumen = 0;
                 break;
         }
         yield break;
+    }
+
+    public void ClearUsedElement()
+    {
+        usedAqua = 0;
+        usedLumen = 0;
+        usedVitality = 0;
+    }
+
+    private void LoadARoundsBuff(Action start,Action stop,int rounds,int buffID)
+    {
+        roundBuffList.Add(new BuffIDRoundsPair(rounds,buffID, stop));
+        start?.Invoke();
+    }
+
+    public void UpdateRoundBuffList()
+    {
+        for(int i=0;i< roundBuffList.Count();i++)
+        {
+            BuffIDRoundsPair tmp = roundBuffList[i];
+            tmp.remainRounds--;
+            roundBuffList[i]=tmp;
+            if (tmp.remainRounds <= 0)
+            {
+                tmp.stopAction?.Invoke();
+                roundBuffList.RemoveAt(i);
+            }
+        }
+        
     }
 
 }

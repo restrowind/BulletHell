@@ -113,6 +113,7 @@ public class BattleManager : MonoBehaviour
                 _cardManager.SetCardState(CardState.Other);
                 _cardManager.DrawCards(everyTimeDrawCardCount);
                 Invoke("MoveToNextState", drawCardDuration);
+                _cardManager.ClearUsedElement();
                 break;
             case BattleState.BulletPhase:
                 _cardManager.SetCardState(CardState.Bullet);
@@ -129,6 +130,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case BattleState.PlayCardPhase:
+                _cardManager.UpdateRoundBuffList();
                 _cardManager.SetCardState(CardState.Play);
                 player.SetPlayerPause(true);
                 StopPlayButton.Play("StopPlayButtonAppear");
@@ -154,20 +156,20 @@ public class BattleManager : MonoBehaviour
         switch (_currentState)
         {
             case BattleState.Start:
-                stateText.text = "战斗开始";
+                stateText.text = "Battle Start";
                 stateDisplayUI.Play("StateDisplay",0,0);
                 break;
             case BattleState.DrawPhase:
-                stateText.text = "抽取卡牌";
+                stateText.text = "Draw Your Cards";
                 stateDisplayUI.Play("StateDisplay", 0, 0);
                 break;
             case BattleState.BulletPhase:
-                stateText.text = "敌人回合";
+                stateText.text = "Bullet Stage";
                 stateDisplayUI.Play("StateDisplay", 0, 0);
 
                 break;
             case BattleState.PlayCardPhase:
-                stateText.text = "你的回合";
+                stateText.text = "Your Turn";
                 stateDisplayUI.Play("StateDisplay", 0, 0);
                 break;
             case BattleState.DiscardPhase:

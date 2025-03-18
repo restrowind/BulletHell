@@ -10,15 +10,16 @@ public class Boss : MonoBehaviour
     private float currentHP;
     private int displayedHP => (int)currentHP;
 
-    [SerializeField] private BossCountDown bossCountDown;
+    public BossCountDown bossCountDown;
     [SerializeField] private Image HPBar;
 
     private float displayFillAmount;
-    [SerializeField] private float fillSmoothSpeed = 2;
+    [SerializeField] private float fillSmoothSpeed = 2f;
+    [SerializeField] private float extraDamageRate = 1f; 
 
     public void DealDamage(float damage)
     {
-        currentHP = Mathf.Max(0, currentHP - damage); 
+        currentHP = Mathf.Max(0, currentHP - damage* extraDamageRate); 
     }
 
     private void Update()
@@ -35,6 +36,11 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+    }
+
+    public void MultiplaDamageRate(float rate)
+    {
+        extraDamageRate *= rate;
     }
 
 }

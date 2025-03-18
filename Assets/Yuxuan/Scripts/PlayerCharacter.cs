@@ -27,8 +27,31 @@ public class PlayerCharacter : MonoBehaviour
     public Image img;
 
 
-    public float currentHP;
+    private float currentHP;
     [SerializeField] float maxHP;
+    [SerializeField] private float takeDamageRate = 1f;
+    private float invincibleTime = 0.5f;
+    private float extraInvincibleTimeRate = 1f;
+    private float invincibleTimer;
+    private bool invincible = false;
+
+    private float giveBackDamageRate = 0f;
+
+    private void HandleInvincibleTimer()
+    {
+        if (invincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer <= 0)
+            {
+                invincible = false;
+            }
+        }
+    }
+    public void MultiplaeInvincibleTime(float rate)
+    {
+        extraInvincibleTimeRate*=rate;
+    }
 
 
 
@@ -109,6 +132,10 @@ public class PlayerCharacter : MonoBehaviour
             {
                 StartCoroutine(Dash());
             }
+
+
+            HandleInvincibleTimer();
+
         }
     }
 
@@ -319,6 +346,22 @@ public class PlayerCharacter : MonoBehaviour
     {
         currentHP = currentHP + (maxHP - currentHP) * percentage;
         UpdateHPUI();
+    }
+
+    public void MultipleTakeDamage(float rate)
+    {
+        takeDamageRate*=rate;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (!invincible)
+        {
+            currentHP = Mathf.Max(currentHP - damage* takeDamageRate, 0);
+            invincible = true;
+            invincibleTimer = invincibleTime* extraInvincibleTimeRate;
+        }
+        CardManager.Instance._boss.DealDamage(giveBackDamageRate* damage * takeDamageRate);
     }
 
 }

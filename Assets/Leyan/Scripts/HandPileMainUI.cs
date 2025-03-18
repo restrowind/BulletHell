@@ -308,7 +308,7 @@ public class HandPileMainUI: MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         else
         {
-            string display = "还需选择" + (needDiscardCount-hasDiscardedCount).ToString()+ "张牌丢弃";
+            string display = "Choose " + (needDiscardCount-hasDiscardedCount).ToString()+ " more cards to discard";
             cardManager.SpawnATipBoard(display);
         }
     }

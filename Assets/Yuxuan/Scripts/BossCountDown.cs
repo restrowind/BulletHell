@@ -33,6 +33,7 @@ public class BossCountDown : MonoBehaviour
         if (timer <= 0)
         {
             BattleManager.Instance.MoveToNextState();
+            timer = currentBulletStateTimeLength;
         }
     }
 
@@ -40,7 +41,6 @@ public class BossCountDown : MonoBehaviour
     {
         timer = currentBulletStateTimeLength;
         Time.timeScale = 1;
-        ReStartBtn.SetActive(false);
         roundCount++; // 每次重新开始增加回合数
     }
 
