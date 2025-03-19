@@ -2,75 +2,111 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(MapReader))]
+[CustomEditor(typeof(MapEditor))]
 public class MapEditorInspector : Editor
 {
-    private MapReader mapReader;
-    private MapData mapData;
+    private MapEditor mapEditor;
     private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green };
     private const float cellSize = 30f;
     private const float padding = 2f;
 
     public override void OnInspectorGUI()
     {
-        mapReader = (MapReader)target;
+        mapEditor = (MapEditor)target;
 
-        EditorGUILayout.LabelField("Map Reader", EditorStyles.boldLabel);
-        mapReader.mapData = (MapData)EditorGUILayout.ObjectField("Map Data", mapReader.mapData, typeof(MapData), false);
-
-        if (mapReader.mapData == null)
+        if (!Application.isPlaying)
         {
-            EditorGUILayout.HelpBox("No Map Data assigned! Drag a MapData asset into the slot above.", MessageType.Warning);
-            return;
+            EditorGUI.BeginChangeCheck();
+            mapEditor.rows = EditorGUILayout.IntField("Rows", mapEditor.rows);
+            mapEditor.cols = EditorGUILayout.IntField("Cols", mapEditor.cols);
+            if (EditorGUI.EndChangeCheck())
+            {
+                mapEditor.AdjustGridSize();
+                SaveScriptableObject();
+            }
         }
 
-        mapData = mapReader.mapData;
         EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Map Grid Editor", EditorStyles.boldLabel);
         DrawGridEditor();
 
-        if (GUILayout.Button("Save Map Data"))
-        {
-            mapReader.SaveMapData();
-        }
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Grid Data Array", EditorStyles.boldLabel);
+        DrawGridArray();
 
-        EditorUtility.SetDirty(mapReader);
+        EditorUtility.SetDirty(mapEditor);
         serializedObject.ApplyModifiedProperties();
         Repaint();
     }
 
     private void DrawGridEditor()
     {
-        if (mapData.gridData == null || mapData.gridData.Count != mapData.rows)
-        {
-            mapData.EnsureGridInitialized();
-        }
-
-        for (int y = 0; y < mapData.rows; y++)
+        Event e = Event.current;
+        for (int y = 0; y < mapEditor.rows; y++)
         {
             EditorGUILayout.BeginHorizontal();
+
             if (y % 2 == 1)
             {
                 GUILayout.Space(cellSize / 2);
             }
 
-            for (int x = 0; x < mapData.cols; x++)
+            for (int x = 0; x < mapEditor.cols; x++)
             {
-                int tileValue = mapData.gridData[y].row[x]; // ✅ Adjusted to work with the GridRow wrapper
+                int tileValue = mapEditor.GetGridValue(y, x);
                 Rect rect = GUILayoutUtility.GetRect(cellSize, cellSize, GUILayout.Width(cellSize + padding), GUILayout.Height(cellSize + padding));
                 rect.width = cellSize;
                 rect.height = cellSize;
 
                 EditorGUI.DrawRect(rect, colors[tileValue]);
 
-                if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
+                if (!Application.isPlaying && e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
                 {
-                    Undo.RecordObject(mapData, "Change Tile Color");
-                    mapData.gridData[y].row[x] = (tileValue + 1) % colors.Length;
-                    EditorUtility.SetDirty(mapData);
+                    Undo.RecordObject(mapEditor, "Change Tile Color");
+                    mapEditor.SetGridValue(y, x, (tileValue + 1) % colors.Length);
+                    SaveScriptableObject();
+                    e.Use(); // 阻止事件进一步传播
                 }
             }
 
             EditorGUILayout.EndHorizontal();
         }
+    }
+
+    private void DrawGridArray()
+    {
+        int rows = mapEditor.rows;
+        int cols = mapEditor.cols;
+        for (int y = 0; y < rows; y++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            for (int x = 0; x < cols; x++)
+            {
+                int value = mapEditor.GetGridValue(y, x);
+                int newValue = Mathf.Clamp(EditorGUILayout.IntField(value, GUILayout.Width(40)), 0, 3);
+
+                if (newValue != value)
+                {
+                    mapEditor.SetGridValue(y, x, newValue);
+                    SaveScriptableObject();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
+    private void SaveScriptableObject()
+    {
+#if UNITY_EDITOR
+        if (!Application.isPlaying && !EditorApplication.isUpdating && !EditorApplication.isCompiling)
+        {
+            EditorApplication.delayCall += () =>
+            {
+                EditorUtility.SetDirty(mapEditor);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            };
+        }
+#endif
     }
 }

@@ -2,7 +2,7 @@
 
 public class MapLoader : MonoBehaviour
 {
-    public MapData mapData; // 选择的 ScriptableObject 地图数据
+    public MapEditor mapData; // 选择的 ScriptableObject 地图数据
     public GameObject[] tilePrefabs; // 0-3 对应的地块预制体
     public Vector2 basePosition = Vector2.zero; // 地图基准位置
     public float hexSize = 1.0f; // 六边形单元宽度
