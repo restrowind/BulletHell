@@ -93,7 +93,10 @@ public class CardManager : MonoBehaviour
 
     public List<BuffIDRoundsPair> roundBuffList= new List<BuffIDRoundsPair>();
 
-    [Serializable]
+    [SerializeField] private Sender _sender;
+
+    [SerializeField] private bool nextCardDouble = false;
+
     public struct BuffIDRoundsPair
     {
         public BuffIDRoundsPair(int id,int rounds,Action stop)
@@ -206,21 +209,21 @@ public class CardManager : MonoBehaviour
         CardInstance card13 = new CardInstance();
         CardInstance card14 = new CardInstance();
         CardInstance card15 = new CardInstance();
-        card1.InitCard(1);
-        card2.InitCard(1);
-        card3.InitCard(1);
-        card4.InitCard(1);
-        card5.InitCard(1);
-        card6.InitCard(1);
-        card7.InitCard(1);
-        card8.InitCard(1);
-        card9.InitCard(1);
-        card10.InitCard(19);
-        card11.InitCard(19);
-        card12.InitCard(19);
-        card13.InitCard(19);
-        card14.InitCard(19);
-        card15.InitCard(19);
+        card1.InitCard(9);
+        card2.InitCard(9);
+        card3.InitCard(9);
+        card4.InitCard(9);
+        card5.InitCard(9);
+        card6.InitCard(9);
+        card7.InitCard(9);
+        card8.InitCard(9);
+        card9.InitCard(9);
+        card10.InitCard(9);
+        card11.InitCard(9);
+        card12.InitCard(4);
+        card13.InitCard(4);
+        card14.InitCard(4);
+        card15.InitCard(1);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -243,6 +246,7 @@ public class CardManager : MonoBehaviour
         hiddenHandPilePos = handPileArea.position + new Vector3(0, hiddenHandPileY - initHandPilePos.y, 0);
 
         handPileArea.position = hiddenHandPilePos;
+        battleManager.PlayCardOver += OverNextDouble;
     }
 
     private void Update()
@@ -259,7 +263,16 @@ public class CardManager : MonoBehaviour
 
             //执行卡牌效果
             CardInstance executedCard = card.counterpartCardInstance;
-            StartCoroutine(ExecuteCardEffect(executedCard));
+            if (nextCardDouble)
+            {
+                StartCoroutine(ExecuteCardEffect(executedCard));
+                StartCoroutine(ExecuteCardEffect(executedCard));
+                nextCardDouble = false;
+            }
+            else
+            {
+                StartCoroutine(ExecuteCardEffect(executedCard));
+            }
             return true;
         }
         else
@@ -392,6 +405,13 @@ public class CardManager : MonoBehaviour
         Destroy(tipBoard.gameObject,1.5f);
     }
 
+    private void Buff6Action()
+    {
+        if(_player.damageTakeThisTurn<=0)
+        {
+            _boss.DealDamage(50);
+        }
+    }
 
     IEnumerator ExecuteCardEffect(CardInstance executedCard)
     {
@@ -414,12 +434,23 @@ public class CardManager : MonoBehaviour
                     _player.MultipleCollectEnhance(0.8f); 
                 },1,1);
                 break;
+            case 4:
+                nextCardDouble = true;
+                break;
+            case 5:
+                LoadARoundsBuff(() => {
+                    _sender.MultipleIntervalRate(1.25f);
+                }, () => {
+                    _sender.MultipleIntervalRate(0.8f);
+                }, 5, 1);
+                break;
+
             case 6:
                 LoadARoundsBuff(() => {
                     _player.MultiplaeInvincibleTime(2f);
                 }, () => {
                     _player.MultiplaeInvincibleTime(0.5f);
-                }, 2, 4);
+                }, 4, 2);
                 break;
             case 7:
                 _boss.DealDamage(10f*usedAqua);
@@ -430,6 +461,13 @@ public class CardManager : MonoBehaviour
                 }, () => {
                     _boss.MultiplaDamageRate(0.5f);
                 }, 2, 1);
+                break;
+            case 9:
+                LoadARoundsBuff(() => {
+                    battleManager.BulletOverResolution += Buff6Action;
+                }, () => {
+                    battleManager.BulletOverResolution -= Buff6Action;
+                }, 6, 1);
                 break;
             case 10:
                 _boss.DealDamage(10f * ResourceCollection.aqua);
@@ -487,6 +525,11 @@ public class CardManager : MonoBehaviour
             }
         }
         
+    }
+
+    public void OverNextDouble()
+    {
+        nextCardDouble = false;
     }
 
 }

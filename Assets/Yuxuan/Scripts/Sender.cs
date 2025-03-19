@@ -14,6 +14,10 @@ public class Sender : MonoBehaviour
     public Transform bulletsParent; // 子弹父节点
     public Transform target;
 
+    [SerializeField] private float baseIntervalRate = 0.6f;
+    private float currentIntervalRate;
+    [SerializeField] private float extraIntervalRate = 1f;
+
     private void Awake()
     {
         bulletsParent = GameObject.Find("BulletController").transform;
@@ -26,6 +30,7 @@ public class Sender : MonoBehaviour
         {
             bulletsParent = transform;
         }
+        UpdateIntervalRate();
     }
 
     private void FixedUpdate()
@@ -45,9 +50,9 @@ public class Sender : MonoBehaviour
             CurrentAngle -= Mathf.Sign(CurrentAngle) * 360f;
         }
 
-        if (currenTime > bullet.SendInterval)
+        if (currenTime > bullet.SendInterval* currentIntervalRate)
         {
-            currenTime -= bullet.SendInterval;
+            currenTime -= bullet.SendInterval* currentIntervalRate;
             SendByCount(bullet.Count, CurrentAngle);
         }
     }
@@ -90,6 +95,16 @@ public class Sender : MonoBehaviour
         bh.AngularVelocity = bullet.AngularVelocity;
         bh.LifeTime = bullet.LiftCycle;
         bh.MaxVelocity = bullet.MaxVelocity;
+    }
+
+    public void MultipleIntervalRate(float rate)
+    {
+        extraIntervalRate*= rate;
+        UpdateIntervalRate();
+    }  
+    private void UpdateIntervalRate()
+    {
+        currentIntervalRate = extraIntervalRate * baseIntervalRate;
     }
 
     // 删除对象池相关方法

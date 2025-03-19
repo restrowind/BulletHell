@@ -1048,9 +1048,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2028919082}
     - target: {fileID: 4375949859004443855, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
+      propertyPath: IntervalRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375949859004443855, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
       propertyPath: bulletsParent
       value: 
       objectReference: {fileID: 1200910718}
+    - target: {fileID: 4375949859004443855, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
+      propertyPath: baseIntervalRate
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
 --- !u!1 &268584479 stripped
@@ -1058,6 +1066,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4375949859004443840, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
   m_PrefabInstance: {fileID: 268584478}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &268584480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4375949859004443855, guid: bf322d9639d3ae6409b80013015a555a, type: 3}
+  m_PrefabInstance: {fileID: 268584478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268584479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb8e9947a149534e82733aee22998b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &316781553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,6 +2299,7 @@ MonoBehaviour:
   bossCountDown: {fileID: 866014664}
   HPBar: {fileID: 1490843643}
   fillSmoothSpeed: 10
+  extraDamageRate: 1
 --- !u!1 &728773963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,7 +3473,8 @@ MonoBehaviour:
   _boss: {fileID: 718220843}
   _player: {fileID: 2028919080}
   _collection: {fileID: 866014663}
-  roundBuffList: []
+  _sender: {fileID: 268584480}
+  nextCardDouble: 0
 --- !u!4 &1242822021
 Transform:
   m_ObjectHideFlags: 0
@@ -5343,8 +5364,9 @@ MonoBehaviour:
   ghostPoolSize: 5
   timer: 5
   img: {fileID: 1801572086}
-  currentHP: 0
   maxHP: 100
+  takeDamageRate: 1
+  damageTakeThisTurn: 0
   hpText: {fileID: 323822549}
   playerCharacterPause: 1
   baseCollectTime: 5

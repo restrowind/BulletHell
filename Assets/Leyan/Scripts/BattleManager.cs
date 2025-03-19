@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +42,9 @@ public class BattleManager : MonoBehaviour
     private int roundCount = 0;
 
     public static BattleManager Instance { get; private set; }
+
+    public event Action PlayCardOver;
+    public event Action BulletOverResolution;
 
     void Start()
     {
@@ -130,6 +134,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case BattleState.PlayCardPhase:
+                BulletOverResolution?.Invoke();
                 _cardManager.UpdateRoundBuffList();
                 _cardManager.SetCardState(CardState.Play);
                 player.SetPlayerPause(true);
@@ -173,6 +178,7 @@ public class BattleManager : MonoBehaviour
                 stateDisplayUI.Play("StateDisplay", 0, 0);
                 break;
             case BattleState.DiscardPhase:
+                PlayCardOver?.Invoke();
                 //stateText.text = "ÆúÅÆ";
                 //stateDisplayUI.Play("StateDisplay", 0, 0);
                 break;

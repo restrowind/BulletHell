@@ -37,6 +37,10 @@ public class PlayerCharacter : MonoBehaviour
 
     private float giveBackDamageRate = 0f;
 
+    public float damageTakeThisTurn = 0f;
+
+   
+
     private void HandleInvincibleTimer()
     {
         if (invincible)
@@ -288,7 +292,7 @@ public class PlayerCharacter : MonoBehaviour
         {
             _isStay = true;
             currentTrigger = collision.gameObject;
-            Debug.Log("111");
+            //Debug.Log("111");
         }
     }
 
@@ -360,6 +364,7 @@ public class PlayerCharacter : MonoBehaviour
             currentHP = Mathf.Max(currentHP - damage* takeDamageRate, 0);
             invincible = true;
             invincibleTimer = invincibleTime* extraInvincibleTimeRate;
+            damageTakeThisTurn += invincibleTime * extraInvincibleTimeRate;
         }
         CardManager.Instance._boss.DealDamage(giveBackDamageRate* damage * takeDamageRate);
     }
