@@ -317,15 +317,15 @@ public class CardManager : MonoBehaviour
             if (!cardDictionary.ContainsKey(card.cardID))
             {
                 cardDictionary.Add(card.cardID, card);
-                Debug.Log($"已加载卡牌: {card.cardID} - {card.cardName}");
+                //Debug.Log($"已加载卡牌: {card.cardID} - {card.cardName}");
             }
             else
             {
-                Debug.LogWarning($"卡牌 ID {card.cardID} 重复，未添加: {card.cardName}");
+                //Debug.LogWarning($"卡牌 ID {card.cardID} 重复，未添加: {card.cardName}");
             }
         }
 
-        Debug.Log($" 总共加载了 {cardDictionary.Count} 张卡牌");
+        //Debug.Log($" 总共加载了 {cardDictionary.Count} 张卡牌");
     }
     public CardDataSO GetCardByID(int cardID)
     {
@@ -333,7 +333,7 @@ public class CardManager : MonoBehaviour
         {
             return cardData;
         }
-        Debug.LogWarning($"未找到 ID 为 {cardID} 的卡牌！");
+        //Debug.LogWarning($"未找到 ID 为 {cardID} 的卡牌！");
         return null;
     }
 
