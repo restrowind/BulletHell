@@ -15,6 +15,7 @@ public class MapTile : MonoBehaviour
 
     [Header("Bright Mask 参数")]
     public GameObject brightMask;           // Bright Mask 的 GameObject（需包含 SpriteRenderer）
+    public GameObject secondaryBrightMask;  // 次要 Bright Mask 的 GameObject（需包含 SpriteRenderer）
     public float brightMaskFadeDuration = 0.1f; // Bright Mask 淡入淡出持续时间
 
     private bool isShaking = false;
@@ -23,6 +24,7 @@ public class MapTile : MonoBehaviour
     private Vector3 originalPosition;
     private Vector3 originalScale;
     private SpriteRenderer brightMaskRenderer; // Bright Mask 的 SpriteRenderer
+    private SpriteRenderer secondaryBrightMaskRenderer; // 次要 Bright Mask 的 SpriteRenderer
 
     void Start()
     {
@@ -43,6 +45,21 @@ public class MapTile : MonoBehaviour
 
             // 设置初始透明度为 0
             brightMaskRenderer.color = new Color(1, 1, 1, 0);
+        }
+
+        // 初始化次要 Bright Mask
+        if (secondaryBrightMask != null)
+        {
+            // 获取次要 Bright Mask 的 SpriteRenderer
+            secondaryBrightMaskRenderer = secondaryBrightMask.GetComponent<SpriteRenderer>();
+            if (secondaryBrightMaskRenderer == null)
+            {
+                Debug.LogError("次要 Bright Mask GameObject 必须包含 SpriteRenderer 组件！");
+                return;
+            }
+
+            // 设置初始透明度为 0
+            secondaryBrightMaskRenderer.color = new Color(1, 1, 1, 0);
         }
     }
 
@@ -93,6 +110,13 @@ public class MapTile : MonoBehaviour
             isShaking = true;
             shakeTime = 0f;
             shakeDuration = duration;
+
+            // 震动时亮起次要 Bright Mask
+            if (secondaryBrightMaskRenderer != null)
+            {
+                LeanTween.alpha(secondaryBrightMaskRenderer.gameObject, 1f, brightMaskFadeDuration)
+                    .setEase(LeanTweenType.easeOutQuad);
+            }
         }
     }
 
@@ -104,6 +128,13 @@ public class MapTile : MonoBehaviour
         isShaking = false;
         transform.localPosition = originalPosition;
         transform.localScale = originalScale;
+
+        // 震动结束时恢复次要 Bright Mask 的透明度
+        if (secondaryBrightMaskRenderer != null)
+        {
+            LeanTween.alpha(secondaryBrightMaskRenderer.gameObject, 0f, brightMaskFadeDuration)
+                .setEase(LeanTweenType.easeInQuad);
+        }
     }
 
     /// <summary>
@@ -125,12 +156,12 @@ public class MapTile : MonoBehaviour
         // 播放 Bright Mask 的淡入淡出效果
         if (brightMaskRenderer != null)
         {
-            // 淡入
+            // Bright Mask 淡入
             LeanTween.alpha(brightMaskRenderer.gameObject, 1f, brightMaskFadeDuration)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setOnComplete(() =>
                 {
-                    // 淡出
+                    // Bright Mask 淡出
                     LeanTween.alpha(brightMaskRenderer.gameObject, 0f, brightMaskFadeDuration)
                         .setEase(LeanTweenType.easeInQuad);
                 });
