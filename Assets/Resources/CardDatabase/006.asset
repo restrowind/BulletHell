@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 006
   m_EditorClassIdentifier: 
   cardID: 6
-  cardName: Aqua<br>              Barrier
+  cardName: Aqua<br>            Barrier
   cardArtwork: {fileID: 21300000, guid: 1154c17770fc8164d8dbec74354f80b6, type: 3}
   description: Increase invincibility time after next barrage hit (lasts 2 turns)
   cost:

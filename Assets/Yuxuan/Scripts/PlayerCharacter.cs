@@ -179,20 +179,20 @@ public class PlayerCharacter : MonoBehaviour
                 img.fillAmount = timer / currentCollectTime;
                 if (timer <= 0)
                 {
-                    if(currentTrigger.name != "Blank")
+                    if(!currentTrigger.name.Contains("Blank"))
                     {
-                     StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
+                        //StartCoroutine(BlinkAndHide(currentTrigger.transform.GetChild(0).gameObject));
                     }
 
-                    if (currentTrigger.name.Equals("Lumen"))
+                    if (currentTrigger.name.Contains("Lumen"))
                     {
                         ResourceCollection.lumen++;
                     }
-                    else if (currentTrigger.name.Equals("Vitality"))
+                    else if (currentTrigger.name.Contains("Vitality"))
                     {
                         ResourceCollection.vitality++;
                     }
-                    else if (currentTrigger.name.Equals("Aqua"))
+                    else if (currentTrigger.name.Contains("Aqua"))
                     {
                         ResourceCollection.aqua++;
                     }

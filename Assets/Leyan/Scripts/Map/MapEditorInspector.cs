@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class MapEditorInspector : Editor
 {
     private MapEditor mapEditor;
-    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green };
+    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green, Color.black }; // ✅ Added new tile type (Black)
     private const float cellSize = 30f;
     private const float padding = 2f;
 
@@ -58,14 +58,14 @@ public class MapEditorInspector : Editor
                 rect.width = cellSize;
                 rect.height = cellSize;
 
-                EditorGUI.DrawRect(rect, colors[tileValue]);
+                EditorGUI.DrawRect(rect, colors[Mathf.Clamp(tileValue, 0, colors.Length - 1)]);
 
                 if (!Application.isPlaying && e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
                 {
                     Undo.RecordObject(mapEditor, "Change Tile Color");
                     mapEditor.SetGridValue(y, x, (tileValue + 1) % colors.Length);
                     SaveScriptableObject();
-                    e.Use(); // 阻止事件进一步传播
+                    e.Use();
                 }
             }
 
@@ -83,7 +83,7 @@ public class MapEditorInspector : Editor
             for (int x = 0; x < cols; x++)
             {
                 int value = mapEditor.GetGridValue(y, x);
-                int newValue = Mathf.Clamp(EditorGUILayout.IntField(value, GUILayout.Width(40)), 0, 3);
+                int newValue = Mathf.Clamp(EditorGUILayout.IntField(value, GUILayout.Width(40)), 0, colors.Length - 1);
 
                 if (newValue != value)
                 {
