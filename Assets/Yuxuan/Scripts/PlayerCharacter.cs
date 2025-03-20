@@ -19,11 +19,11 @@ public class PlayerCharacter : MonoBehaviour
     public int ghostPoolSize = 10; // 预创建的残影对象数量
 
     private Rigidbody2D rb;
-    private Vector2 moveInput;
-    private bool isDashing;
+    [SerializeField] private Vector2 moveInput;
+    [SerializeField] private bool isDashing;
     private bool canDash = true;
     private SpriteRenderer playerSprite;
-    public float timer;
+    [SerializeField] private float timer;
     public Image img;
 
 
@@ -70,7 +70,7 @@ public class PlayerCharacter : MonoBehaviour
 
     // 阶段切换
     private BattleState _currentState;
-    public bool playerCharacterPause = true;
+    [HideInInspector] public bool playerCharacterPause = true;
 
 
     //采集相关
@@ -95,6 +95,10 @@ public class PlayerCharacter : MonoBehaviour
             ghostPool.Enqueue(ghost);
         }
         InitData();
+        if (currentTrigger)
+        {
+            currentTrigger.GetComponent<MapTile>().StopShake();
+        }
     }
 
     private void InitData()
@@ -173,10 +177,10 @@ public class PlayerCharacter : MonoBehaviour
                 rb.velocity = moveInput * moveSpeed;
             }
 
-            if (_isStay)
+            if (triggerEnterFlag>0)
             {
                 timer -= Time.deltaTime;
-                img.fillAmount = timer / currentCollectTime;
+                img.fillAmount = 1f-timer / currentCollectTime;
                 if (timer <= 0)
                 {
                     if(!currentTrigger.name.Contains("Blank"))
@@ -197,7 +201,17 @@ public class PlayerCharacter : MonoBehaviour
                         ResourceCollection.aqua++;
                     }
                     timer = currentCollectTime;
+
+                    if(currentTrigger)
+                    {
+                        currentTrigger.GetComponent<MapTile>().PlayBounceAnimation();
+                    }
                 }
+            }
+            else
+            {
+                timer = currentCollectTime;
+                img.fillAmount = 0;
             }
         }
     }
@@ -210,6 +224,7 @@ public class PlayerCharacter : MonoBehaviour
         // 存储原始速度并应用冲刺速度
         Vector2 dashDirection = moveInput;
         rb.velocity = dashDirection * dashSpeed;
+        Debug.Log(rb.velocity);
 
         // 开始生成残影
         StartCoroutine(CreateGhosts());
@@ -220,6 +235,8 @@ public class PlayerCharacter : MonoBehaviour
         // 恢复常规移动
         isDashing = false;
         rb.velocity = moveInput * moveSpeed;
+        Debug.Log("这里赋值了");
+        Debug.Log(rb.velocity);
 
         // 冷却时间
         yield return new WaitForSeconds(dashCooldown);
@@ -286,23 +303,53 @@ public class PlayerCharacter : MonoBehaviour
         ReturnGhostToPool(ghost.gameObject);
     }
 
+
+    [SerializeField] private int triggerEnterFlag = 0;
     private void OnTriggerStay2D(Collider2D collision)
-    {             
+    {
+        if (!playerCharacterPause)
+        {
+            if (collision.CompareTag("收集元素"))
+            {
+                if (currentTrigger && currentTrigger != collision.gameObject)
+                {
+                    currentTrigger.GetComponent<MapTile>().StopShake();
+                }
+                currentTrigger = collision.gameObject;
+                currentTrigger.GetComponent<MapTile>().StartShake();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
         if (collision.CompareTag("收集元素"))
         {
-            _isStay = true;
+            triggerEnterFlag++;
+            if (currentTrigger)
+            {
+                currentTrigger.GetComponent<MapTile>().StopShake();
+            }
             currentTrigger = collision.gameObject;
+            currentTrigger.GetComponent<MapTile>().StartShake();
             //Debug.Log("111");
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        /*if (collision.CompareTag("收集元素"))
+
+        if (collision.CompareTag("收集元素"))
         {
-            timer = 5;
-            _isStay =false;
-        }*/
+            triggerEnterFlag--;
+            if (triggerEnterFlag <= 0)
+            {
+                currentTrigger.GetComponent<MapTile>().StopShake();
+                currentTrigger = null;
+            }
+        }
     }
     
     IEnumerator BlinkAndHide(GameObject ghost)
@@ -323,15 +370,20 @@ public class PlayerCharacter : MonoBehaviour
         if(pause)
         {
             playerCharacterPause = true;
-            timer = 0;
+            timer = currentCollectTime;
             rb.velocity = Vector2.zero;
             moveInput = Vector2.zero;
             UpdateAnimation();
             img.fillAmount = 1;
+            if (currentTrigger)
+            {
+                currentTrigger.GetComponent<MapTile>().StopShake();
+            }
         }
         else
         {
             playerCharacterPause = false;
+
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 003
   m_EditorClassIdentifier: 
   cardID: 3
-  cardName: Hydro<br>            Conduit
+  cardName: Hydro<br>          Conduit
   cardArtwork: {fileID: 21300000, guid: e4ccc8e693581994b9f75a41d91961c7, type: 3}
   description: 'Reduce next barrage cooldown by 20%, increase collection efficiency
     by 25% '

@@ -17,11 +17,15 @@ public class BossCountDown : MonoBehaviour
     [SerializeField] private float baseBulletStateTimeLength = 30f;
     [SerializeField] private float lengthExtraRate = 1f;
     private float currentBulletStateTimeLength;
+    [SerializeField] private Image countDownBar;
+    private float currentLength;
+
 
     private void Start()
     {
         UpdateLength();
         timer = currentBulletStateTimeLength;
+        currentLength = currentBulletStateTimeLength;
         countDownText.text = timer.ToString("0");
     }
     public void Update()
@@ -29,17 +33,20 @@ public class BossCountDown : MonoBehaviour
         if (BattleManager.Instance._currentState != BattleState.BulletPhase) return;
 
         timer -= Time.deltaTime;
+        countDownBar.fillAmount = timer/ currentLength;
         countDownText.text = timer.ToString("0");
         if (timer <= 0)
         {
             BattleManager.Instance.MoveToNextState();
             timer = currentBulletStateTimeLength;
+            currentLength = currentBulletStateTimeLength;
         }
     }
 
     public void ReStart()
     {
         timer = currentBulletStateTimeLength;
+        currentLength = currentBulletStateTimeLength;
         Time.timeScale = 1;
         roundCount++; // 每次重新开始增加回合数
     }

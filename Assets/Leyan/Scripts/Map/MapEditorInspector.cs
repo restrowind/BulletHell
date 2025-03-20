@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 [CustomEditor(typeof(MapEditor))]
 public class MapEditorInspector : Editor
 {
     private MapEditor mapEditor;
-    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green, Color.black }; // ✅ Added new tile type (Black)
+    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green, Color.black };
     private const float cellSize = 30f;
     private const float padding = 2f;
+    private bool isHolding = false;
+    private Stopwatch holdTimer = new Stopwatch();
+    private Vector2 lastMousePosition;
+    private int lastX = -1, lastY = -1;
 
     public override void OnInspectorGUI()
     {
@@ -63,13 +68,59 @@ public class MapEditorInspector : Editor
                 if (!Application.isPlaying && e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
                 {
                     Undo.RecordObject(mapEditor, "Change Tile Color");
-                    mapEditor.SetGridValue(y, x, (tileValue + 1) % colors.Length);
+                    if (e.button == 0) // Left Click
+                    {
+                        mapEditor.SetGridValue(y, x, (tileValue + 1) % colors.Length);
+                        isHolding = true;
+                        holdTimer.Restart();
+                        lastMousePosition = e.mousePosition;
+                        lastX = x;
+                        lastY = y;
+                        EditorApplication.update += OnHoldIncrement;
+                    }
+                    else if (e.button == 1) // Right Click
+                    {
+                        mapEditor.SetGridValue(y, x, 0);
+                    }
                     SaveScriptableObject();
                     e.Use();
+                }
+                else if (e.type == EventType.MouseUp)
+                {
+                    isHolding = false;
+                    holdTimer.Reset();
+                    EditorApplication.update -= OnHoldIncrement;
                 }
             }
 
             EditorGUILayout.EndHorizontal();
+        }
+    }
+
+    private void OnHoldIncrement()
+    {
+        if (!isHolding || holdTimer.ElapsedMilliseconds < 500)
+            return;
+
+        Event e = Event.current;
+        if (e != null && e.type == EventType.MouseDrag)
+        {
+            for (int y = 0; y < mapEditor.rows; y++)
+            {
+                for (int x = 0; x < mapEditor.cols; x++)
+                {
+                    Rect rect = GUILayoutUtility.GetRect(cellSize, cellSize, GUILayout.Width(cellSize + padding), GUILayout.Height(cellSize + padding));
+                    if (rect.Contains(e.mousePosition) && (lastX != x || lastY != y))
+                    {
+                        int tileValue = mapEditor.GetGridValue(y, x);
+                        mapEditor.SetGridValue(y, x, (tileValue + 1) % colors.Length);
+                        lastX = x;
+                        lastY = y;
+                        holdTimer.Restart();
+                        SaveScriptableObject();
+                    }
+                }
+            }
         }
     }
 

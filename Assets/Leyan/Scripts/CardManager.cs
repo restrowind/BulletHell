@@ -169,7 +169,7 @@ public class CardManager : MonoBehaviour
         {
             drawNum = maxHandCount - handPileSize;
             //手牌数量超过上限
-            SpawnATipBoard("手牌数量已满,无法抽取更多卡牌");
+            SpawnATipBoard("Hand is full, cannot draw more cards");
 
         }
 
@@ -210,13 +210,13 @@ public class CardManager : MonoBehaviour
         CardInstance card14 = new CardInstance();
         CardInstance card15 = new CardInstance();
         card1.InitCard(1);
-        card2.InitCard(1);
+        card2.InitCard(2);
         card3.InitCard(3);
-        card4.InitCard(3);
+        card4.InitCard(11);
         card5.InitCard(4);
-        card6.InitCard(4);
+        card6.InitCard(11);
         card7.InitCard(5);
-        card8.InitCard(5);
+        card8.InitCard(11);
         card9.InitCard(6);
         card10.InitCard(6);
         card11.InitCard(7);
@@ -277,7 +277,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
-            SpawnATipBoard("费用不足");
+            SpawnATipBoard("Insufficient resources");
             return false;
         }
 
@@ -346,7 +346,7 @@ public class CardManager : MonoBehaviour
         else
         {
             battleManager.MoveToNextState();
-            SpawnATipBoard("无需弃牌");
+            SpawnATipBoard("No need to discard");
         }
     }
     public void SetCardState(CardState state)

@@ -93,7 +93,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
                     }
                     else
                     {
-                        cardManager.SpawnATipBoard("无需更多弃牌");
+                        cardManager.SpawnATipBoard("No need to discard more");
                     }
                 }
                 
