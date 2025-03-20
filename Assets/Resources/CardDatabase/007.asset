@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: 7
   cardName: Gravity<br>               Tide
-  cardArtwork: {fileID: 21300000, guid: 1f21190ca9d1e8540b2a3a2e46002685, type: 3}
+  cardArtwork: {fileID: 21300000, guid: 7a84efaf0cfe97a4bbc35ca451695ee5, type: 3}
   description: 'Deal damage equal to 5x the water elements used this turn '
   cost:
     aqua: 0

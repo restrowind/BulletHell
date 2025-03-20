@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: 1
   cardName: 'Tidal <br>            Strike '
-  cardArtwork: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
+  cardArtwork: {fileID: 21300000, guid: a062c0c4be74cb24cb212376cf89b023, type: 3}
   description: 'Deal 30 damage '
   cost:
     aqua: 2

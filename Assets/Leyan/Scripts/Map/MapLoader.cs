@@ -14,7 +14,7 @@ public class MapLoader : MonoBehaviour
     {
         if (mapData != null)
         {
-            //GenerateMap();
+            GenerateMap();
         }
     }
 
@@ -23,9 +23,9 @@ public class MapLoader : MonoBehaviour
         hexWidth = hexSize; // 水平间距 = 单元宽度
         hexHeight = Mathf.Sqrt(3) * 0.5f * hexSize; // 垂直间距 = (√3 / 2) * 单元宽度
 
-        for (int y = 0; y < mapData.rows; y++)
+        for (int x = 0; x < mapData.cols; x++)
         {
-            for (int x = 0; x < mapData.cols; x++)
+            for (int y = 0; y < mapData.rows; y++)
             {
                 int tileType = mapData.GetGridValue(y, x);
                 if (tileType >= 0 && tileType < tilePrefabs.Length)
@@ -40,10 +40,10 @@ public class MapLoader : MonoBehaviour
     private Vector3 CalculateHexPosition(int x, int y)
     {
         float xPos = basePosition.x + x * hexWidth; // 列偏移 1 倍单元宽度
-        float yPos = basePosition.y - y * hexHeight * 2f; // 六边形方向调整
-        if (x % 2 == 1)
+        float yPos = basePosition.y - y * hexHeight; // 六边形方向调整
+        if (y % 2 == 1)
         {
-            yPos -= hexHeight; // 奇数列向下偏移 √3/2 倍单元宽度
+            xPos += hexWidth/2; // 奇数列向下偏移 √3/2 倍单元宽度
         }
         return new Vector3(xPos, yPos, 0f);
     }

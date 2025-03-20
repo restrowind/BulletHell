@@ -1593,14 +1593,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9c697e9d8931747ba6e4714478ca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: {fileID: 11400000, guid: 0cfe0f3008c2d3f4092c92fa0c01a57e, type: 2}
   tilePrefabs:
-  - {fileID: 4943793770366817233, guid: 576e8e4ef0f3ea845b3505963baf02a7, type: 3}
+  - {fileID: 4943793770366817233, guid: 48a87a5a5e997a4438ceabbc0a7d5dcb, type: 3}
   - {fileID: 5684966385122329566, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
   - {fileID: 4829942766926334033, guid: a8fe4fcf2f1fe144eb67ae852852a433, type: 3}
-  - {fileID: 4829942766926334033, guid: a8fe4fcf2f1fe144eb67ae852852a433, type: 3}
-  basePosition: {x: 0, y: 0}
-  hexSize: 1.73
+  - {fileID: 721781092189284770, guid: 7eb30f5392c260c47a856cec4f37f415, type: 3}
+  basePosition: {x: -3, y: 1}
+  hexSize: 1.05
 --- !u!1 &454705694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,7 +2336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &728773964
 Transform:
   m_ObjectHideFlags: 0
@@ -3696,7 +3696,7 @@ MonoBehaviour:
   _currentState: 0
   _cardManager: {fileID: 1242822020}
   fistDrawCardCount: 2
-  everyTimeDrawCardCount: 3
+  everyTimeDrawCardCount: 6
   startDuration: 2
   drawCardDuration: 2
   conversationDuration: 2

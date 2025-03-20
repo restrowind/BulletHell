@@ -8,13 +8,19 @@ using UnityEditor;
 
 [CreateAssetMenu(fileName = "New Map", menuName = "MapEditor/Map Data", order = 1)]
 [Serializable]
+public class GridRow
+{
+    public List<int> row = new List<int>();
+}
+
+[Serializable]
 public class MapEditor : ScriptableObject
 {
     [SerializeField] public int rows = 10;
     [SerializeField] public int cols = 10;
-    [SerializeField] private List<List<int>> gridData = new List<List<int>>();
+    [SerializeField] private List<GridRow> gridData = new List<GridRow>();
     private bool isInitialized = false;
-    private bool isLocked = false; // ✅ New variable to lock data during Play Mode
+    private bool isLocked = false; // ✅ Prevent modifications in Play Mode
 
     private void OnEnable()
     {
@@ -26,62 +32,83 @@ public class MapEditor : ScriptableObject
         }
         else
         {
-            if (!isLocked) // ✅ Prevent re-initialization when Play Mode starts
+            if (!isLocked)
             {
                 LoadGridData();
                 isLocked = true;
             }
         }
-        Debug.Log($"[OnEnable] {name} - Grid Data Count: {gridData?.Count}");
     }
 
     public void AdjustGridSize()
     {
-        if (isLocked) return; // ✅ Prevent modifications while locked
+        if (isLocked) return;
         EnsureGridInitialized();
         SaveGridData();
     }
 
     public int GetGridValue(int row, int col)
     {
-        if (gridData == null || row >= gridData.Count || col >= gridData[row].Count)
+        if (gridData == null || row >= gridData.Count || col >= gridData[row].row.Count)
         {
             return 0;
         }
-        return Mathf.Clamp(gridData[row][col], 0, 3);
+        return Mathf.Clamp(gridData[row].row[col], 0, 3);
     }
 
     public void SetGridValue(int row, int col, int value)
     {
-        if (Application.isPlaying || isLocked) // ✅ Prevent modifications in Play Mode
+        if (Application.isPlaying || isLocked)
         {
             Debug.LogWarning($"[SetGridValue] Ignoring changes in Play Mode - {name}");
             return;
         }
 
-        if (gridData == null || row >= gridData.Count || col >= gridData[row].Count)
+        if (gridData == null || row >= gridData.Count || col >= gridData[row].row.Count)
         {
             return;
         }
-        if (gridData[row][col] != value)
+        if (gridData[row].row[col] != value)
         {
-            gridData[row][col] = Mathf.Clamp(value, 0, 3);
+            gridData[row].row[col] = Mathf.Clamp(value, 0, 3);
             SaveGridData();
         }
     }
 
     private void EnsureGridInitialized()
     {
-        if (gridData == null || gridData.Count == 0)
+        if (gridData == null)
         {
-            gridData = new List<List<int>>();
-            for (int i = 0; i < rows; i++)
+            gridData = new List<GridRow>();
+        }
+
+        // Handle adding new rows
+        while (gridData.Count < rows)
+        {
+            GridRow newRow = new GridRow();
+            for (int j = 0; j < cols; j++)
             {
-                gridData.Add(new List<int>());
-                for (int j = 0; j < cols; j++)
-                {
-                    gridData[i].Add(0);
-                }
+                newRow.row.Add(0);
+            }
+            gridData.Add(newRow);
+        }
+
+        // Handle removing rows
+        while (gridData.Count > rows)
+        {
+            gridData.RemoveAt(gridData.Count - 1);
+        }
+
+        // Ensure all rows have correct column sizes
+        foreach (var row in gridData)
+        {
+            while (row.row.Count < cols)
+            {
+                row.row.Add(0);
+            }
+            while (row.row.Count > cols)
+            {
+                row.row.RemoveAt(row.row.Count - 1);
             }
         }
     }
@@ -92,14 +119,18 @@ public class MapEditor : ScriptableObject
         string path = AssetDatabase.GetAssetPath(this);
         if (string.IsNullOrEmpty(path))
         {
-            Debug.LogError($"[LoadGridData] {name} is NOT linked to an asset! Attempting manual reload.");
+            Debug.LogError($"[LoadGridData] {name} is NOT linked to an asset!");
             return;
         }
 
         MapEditor savedData = AssetDatabase.LoadAssetAtPath<MapEditor>(path);
         if (savedData != null)
         {
-            gridData = savedData.gridData;
+            gridData = new List<GridRow>();
+            foreach (var row in savedData.gridData)
+            {
+                gridData.Add(new GridRow { row = new List<int>(row.row) });
+            }
             rows = savedData.rows;
             cols = savedData.cols;
             Debug.Log($"[LoadGridData] Successfully reloaded {name} from {path}");
@@ -130,6 +161,3 @@ public class MapEditor : ScriptableObject
         }
     }
 }
-
-
-//我觉得可能的原因是ScriptableObject和编辑器继承时非运行状态下更新产生的错乱，我现在想要使用一种新的模式，我使用一个包含原先可视化地图编辑器的非SO脚本
