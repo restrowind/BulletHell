@@ -49,6 +49,7 @@ public class PlayerCharacter : MonoBehaviour
             if (invincibleTimer <= 0)
             {
                 invincible = false;
+                StopFlashing();
             }
         }
     }
@@ -99,6 +100,18 @@ public class PlayerCharacter : MonoBehaviour
         {
             currentTrigger.GetComponent<MapTile>().StopShake();
         }
+        playerSprite = GetComponent<SpriteRenderer>();
+
+        if (whiteFlashMaterial == null)
+        {
+            Debug.LogError("⚠️ whiteFlashMaterial 没有在 Inspector 里赋值！");
+            return;
+        }
+
+        // ✅ 生成材质实例，防止多个对象共享材质
+        instanceWhiteMaterial = new Material(whiteFlashMaterial);
+        playerSprite.material = instanceWhiteMaterial; // ✅ 让角色始终使用这个材质
+        playerSprite.material.SetFloat("_FlashAmount", 0f); // ✅ 默认不闪白
     }
 
     private void InitData()
@@ -413,12 +426,54 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (!invincible)
         {
+            StartFlashing();
             currentHP = Mathf.Max(currentHP - damage* takeDamageRate, 0);
             invincible = true;
             invincibleTimer = invincibleTime* extraInvincibleTimeRate;
             damageTakeThisTurn += invincibleTime * extraInvincibleTimeRate;
+            CardManager.Instance._boss.DealDamage(giveBackDamageRate * damage * takeDamageRate);
         }
-        CardManager.Instance._boss.DealDamage(giveBackDamageRate* damage * takeDamageRate);
+    }
+
+
+    private Material instanceWhiteMaterial; // 让角色始终使用这个材质
+    private Coroutine flashRoutine;
+    private bool isFlashing = false;
+    public Material whiteFlashMaterial;
+    // 🚀 开启周期闪白
+    public void StartFlashing(float flashInterval = 0.2f)
+    {
+        if (isFlashing) return; // 避免重复开启
+        isFlashing = true;
+        flashRoutine = StartCoroutine(FlashRoutine(flashInterval));
+    }
+
+    // ⛔ 关闭闪白
+    public void StopFlashing()
+    {
+        if (!isFlashing) return;
+        isFlashing = false;
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
+
+        playerSprite.material.SetFloat("_FlashAmount", 0f); // ✅ 归零，恢复正常颜色
+    }
+
+    // 🎯 让角色周期闪白
+    private IEnumerator FlashRoutine(float interval)
+    {
+        while (isFlashing)
+        {
+            playerSprite.material.SetFloat("_FlashAmount", 1f); // ✅ 变白
+            yield return new WaitForSeconds(interval * 0.5f);
+
+            playerSprite.material.SetFloat("_FlashAmount", 0f); // ✅ 变回正常颜色
+            yield return new WaitForSeconds(interval * 0.5f);
+        }
     }
 
 }
