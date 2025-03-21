@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - "\u6536\u96C6\u5143\u7D20"
+  - PlayerHitBox
   layers:
   - Default
   - TransparentFX

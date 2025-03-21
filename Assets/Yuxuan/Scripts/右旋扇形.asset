@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0adf68bb7843aaa4bb2afadc7ee3798a, type: 3}
-  m_Name: "\u6247\u5F62"
+  m_Name: "\u53F3\u65CB\u6247\u5F62"
   m_EditorClassIdentifier: 
-  LiftCycle: 3
-  LinearVelocity: 6
-  Acceleration: -2
-  AngularVelocity: 0
-  AngularAcceleration: 0
+  LiftCycle: 10
+  LinearVelocity: 3
+  Acceleration: 0.3
+  AngularVelocity: 45
+  AngularAcceleration: -5
   MaxVelocity: 2.1474836e+9
   SenderAngularVelocity: 0
   SenderMaxAngularVelocity: 0
   SenderAccleration: 0
-  Count: 6
-  LineAngle: 20
-  SendInterval: 0.25
+  Count: 8
+  LineAngle: 35
+  SendInterval: 0.2
   Damage: 1
   isTrack: 0
   trackTime: 0
