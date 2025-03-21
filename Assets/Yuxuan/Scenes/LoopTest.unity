@@ -258,11 +258,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17051432}
   m_CullTransparentMesh: 1
---- !u!4 &39779022 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4747954148465103768, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
-  m_PrefabInstance: {fileID: 8380448098611741567}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &81028580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5684966385122329561, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
@@ -5887,21 +5882,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4681134759064839895, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8380448097141463639, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
       propertyPath: hpText
       value: 
       objectReference: {fileID: 323822549}
-    - target: {fileID: 8380448097141463639, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
-      propertyPath: _hitBox
-      value: 
-      objectReference: {fileID: 39779022}
-    - target: {fileID: 8380448097141463643, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
-      propertyPath: m_Name
-      value: CharacterBody
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}

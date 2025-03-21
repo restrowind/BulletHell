@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: 14
   cardName: 'Photo <br>    synthesis '
-  cardArtwork: {fileID: 21300000, guid: bf2f5f2ed49971b41bb29785bf74cab8, type: 3}
+  cardArtwork: {fileID: 21300000, guid: b074c686c4d6e71418f5737ad1d4f62d, type: 3}
   description: 'Restore 20 HP '
   cost:
     aqua: 0
