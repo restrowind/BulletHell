@@ -14,7 +14,10 @@ public class BulletObject : ScriptableObject
    public float AngularAcceleration = 0;
    public float MaxVelocity = int.MaxValue;
 
-   [Header("发射器初始配置")] 
+    [Header("子弹朝向配置")]
+    public bool FacePlayerOnFire = false; // 发射时朝向玩家
+
+    [Header("发射器初始配置")] 
    //public float InitRotation = 0;
 
    public float SenderAngularVelocity = 0;

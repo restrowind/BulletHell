@@ -326,6 +326,7 @@ public class PlayerCharacter : MonoBehaviour
             {
                 if (currentTrigger && currentTrigger != collision.gameObject)
                 {
+                    Debug.Log(currentTrigger);
                     currentTrigger.GetComponent<MapTile>().StopShake();
                 }
                 currentTrigger = collision.gameObject;

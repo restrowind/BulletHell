@@ -84,7 +84,18 @@ public class Sender : MonoBehaviour
         // 直接实例化新子弹
         GameObject go = Instantiate(bullet.Prefabs, bulletsParent);
         go.transform.position = transform.position;
-        go.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // **如果启用了 FacePlayerOnFire，子弹朝向玩家**
+        if (bullet.FacePlayerOnFire && target != null)
+        {
+            Vector3 dir = (target.position - transform.position).normalized;
+            float playerAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            go.transform.rotation = Quaternion.Euler(0, 0, playerAngle);
+        }
+        else
+        {
+            go.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
 
         var bh = go.GetComponent<BulletBehaviour>();
         if (bh != null)

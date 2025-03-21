@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_AnchoredPosition: {x: 0, y: 0.48}
   m_SizeDelta: {x: 0.4, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5730389878453415238
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c40f7099da8ac2d44ab6bbd8f2f61b76, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -300,6 +300,7 @@ MonoBehaviour:
   baseCollectTime: 5
   collectEnhance: 2
   triggerEnterFlag: 0
+  whiteFlashMaterial: {fileID: 2100000, guid: c40f7099da8ac2d44ab6bbd8f2f61b76, type: 2}
 --- !u!50 &5279608296018718614
 Rigidbody2D:
   serializedVersion: 4
@@ -355,8 +356,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.64}
-  m_Size: {x: 1.35, y: 2.38}
+  m_Offset: {x: 0, y: 0.36}
+  m_Size: {x: 0.06, y: 0.06}
   m_Direction: 0
 --- !u!1 &6448688682990102543
 GameObject:
