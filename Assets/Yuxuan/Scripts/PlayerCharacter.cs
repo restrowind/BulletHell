@@ -39,6 +39,9 @@ public class PlayerCharacter : MonoBehaviour
 
     public float damageTakeThisTurn = 0f;
 
+    [SerializeField] private Transform _hitBox;
+    private Vector3 hitBoxDeltaPos;
+
    
 
     private void HandleInvincibleTimer()
@@ -112,6 +115,8 @@ public class PlayerCharacter : MonoBehaviour
         instanceWhiteMaterial = new Material(whiteFlashMaterial);
         playerSprite.material = instanceWhiteMaterial; // ✅ 让角色始终使用这个材质
         playerSprite.material.SetFloat("_FlashAmount", 0f); // ✅ 默认不闪白
+
+        hitBoxDeltaPos=_hitBox.position-transform.position;
     }
 
     private void InitData()
@@ -157,7 +162,14 @@ public class PlayerCharacter : MonoBehaviour
 
             HandleInvincibleTimer();
 
+            UpdateHitBoxPosition();
+
         }
+    }
+
+    private void UpdateHitBoxPosition()
+    {
+        _hitBox.position = transform.position+ hitBoxDeltaPos;
     }
 
     private void UpdateHPUI()

@@ -63,10 +63,10 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerHitBox"))
         {
-            if (!collision.GetComponent<PlayerCharacter>().playerCharacterPause)
+            if (!collision.transform.parent.GetComponentInChildren<PlayerCharacter>().playerCharacterPause)
             {
                 Destroy(gameObject);
-                collision.GetComponent<PlayerCharacter>().TakeDamage(damage);
+                collision.transform.parent.GetComponentInChildren<PlayerCharacter>().TakeDamage(damage);
                 //Debug.Log("Take Damage");
             }
         }
