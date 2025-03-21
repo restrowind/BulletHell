@@ -19,6 +19,7 @@ public class CardDataSO : ScriptableObject
     [Header("卡牌类型")]
     public CardType cardType;
     public Rarity rarity;
+    public ElementType elementType;
 
     [Header("卡牌效果")]
     public List<CardEffectData> effects = new List<CardEffectData>();
@@ -39,6 +40,12 @@ public enum CardType
     Attack,
     Survive,
     Special
+}
+public enum ElementType
+{
+    Aqua,
+    Lumen,
+    Vitality
 }
 
 // **稀有度（可扩展）**

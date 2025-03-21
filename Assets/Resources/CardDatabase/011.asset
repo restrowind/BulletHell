@@ -22,4 +22,5 @@ MonoBehaviour:
     vitality: 0
   cardType: 0
   rarity: 0
+  elementType: 1
   effects: []

@@ -30,6 +30,12 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
     private CardState _cardState=CardState.Other;
     public bool isDiscarded = false;
 
+    [SerializeField] private Image cardFrame;
+    [SerializeField] private Image cardNameBoard;
+
+    [SerializeField] private List<Sprite> frameList = new List<Sprite>();
+    [SerializeField] private List<Sprite> fnameBoardList = new List<Sprite>();
+
 
     public void InitCardUI(HandPileMainUI handPileMainUI, CardInstance card,int index)
     {
@@ -242,6 +248,15 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardArtwork.sprite= cardManager.GetCardByID(counterpartCardInstance.cardID).cardArtwork;
         cardName.text= cardManager.GetCardByID(counterpartCardInstance.cardID).cardName;
         cardDescription.text = cardManager.GetCardByID(counterpartCardInstance.cardID).description;
+
+
+        cardFrame.sprite = cardManager.GetCardByID(counterpartCardInstance.cardID).cardArtwork;
+
+
+        
+        cardFrame.sprite = frameList[(int)cardManager.GetCardByID(counterpartCardInstance.cardID).elementType];
+        cardNameBoard.sprite = fnameBoardList[(int)cardManager.GetCardByID(counterpartCardInstance.cardID).elementType];
+
 
         PrintCardCost();
 

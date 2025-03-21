@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: 17
   cardName: Pain <br>    Reversal
-  cardArtwork: {fileID: 21300000, guid: 7d1057aa08f30714bb925b7be73ed75b, type: 3}
+  cardArtwork: {fileID: 21300000, guid: 46ea702f686756f4b8aa02848d2fd17c, type: 3}
   description: 'Reflect double the damage taken in the next barrage phase back to
     the Boss '
   cost:
@@ -23,4 +23,5 @@ MonoBehaviour:
     vitality: 0
   cardType: 0
   rarity: 0
+  elementType: 2
   effects: []
