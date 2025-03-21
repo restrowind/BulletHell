@@ -96,6 +96,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Sender _sender;
 
     [SerializeField] private bool nextCardDouble = false;
+    [SerializeField] private ActiveSkill _activeSkill;
 
     public struct BuffIDRoundsPair
     {
@@ -209,18 +210,18 @@ public class CardManager : MonoBehaviour
         CardInstance card13 = new CardInstance();
         CardInstance card14 = new CardInstance();
         CardInstance card15 = new CardInstance();
-        card1.InitCard(1);
-        card2.InitCard(2);
-        card3.InitCard(3);
-        card4.InitCard(4);
-        card5.InitCard(5);
-        card6.InitCard(6);
-        card7.InitCard(7);
-        card8.InitCard(8);
-        card9.InitCard(9);
-        card10.InitCard(10);
-        card11.InitCard(11);
-        card12.InitCard(17);
+        card1.InitCard(12);
+        card2.InitCard(12);
+        card3.InitCard(12);
+        card4.InitCard(12);
+        card5.InitCard(12);
+        card6.InitCard(12);
+        card7.InitCard(12);
+        card8.InitCard(13);
+        card9.InitCard(13);
+        card10.InitCard(13);
+        card11.InitCard(13);
+        card12.InitCard(13);
         card13.InitCard(18);
         card14.InitCard(19);
         card15.InitCard(20);
@@ -476,6 +477,12 @@ public class CardManager : MonoBehaviour
                 break;
             case 11:
                 _player.HealByAbs(20);
+                break;
+            case 12:
+                _activeSkill.LoadActiveSkill(1, 1);
+                break;
+            case 13:
+                _activeSkill.LoadActiveSkill(2, 1);
                 break;
             case 18:
                 _player.HealByWoundPercentage(0.5f);
