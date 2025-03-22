@@ -132,4 +132,18 @@ public class Sender : MonoBehaviour
     {
         currentIntervalRate = extraIntervalRate * baseIntervalRate;
     }
+
+    public void ClearAllBullets()
+    {
+        // 找到场景中所有带 `BulletBehaviour` 的子弹
+        BulletBehaviour[] bullets = FindObjectsOfType<BulletBehaviour>();
+
+        // 遍历所有子弹并销毁
+        foreach (BulletBehaviour bullet in bullets)
+        {
+            Destroy(bullet.gameObject); // ⚠️ 如果有对象池，需要改成回收
+        }
+
+        Debug.Log($"✅ 清除 {bullets.Length} 颗子弹！");
+    }
 }

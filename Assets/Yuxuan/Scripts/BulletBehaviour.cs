@@ -70,5 +70,11 @@ public class BulletBehaviour : MonoBehaviour
                 //Debug.Log("Take Damage");
             }
         }
+        else if (collision.gameObject.CompareTag("SumonCreature"))
+        {
+            collision.GetComponentInChildren<SumonCreature>().GetDamage(damage);
+            Destroy(gameObject);
+
+        }
     }
 }

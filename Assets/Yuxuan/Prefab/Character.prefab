@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1079077595115177646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5220910306824910648}
+  m_Layer: 0
+  m_Name: center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5220910306824910648
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079077595115177646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: -0.179, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4584589720250816431}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3403885454686353944
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +61,7 @@ Transform:
   m_Children:
   - {fileID: 8380448097141463637}
   - {fileID: 4747954148465103768}
+  - {fileID: 5220910306824910648}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,7 +140,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 0.9716981, g: 0.106947795, b: 0.8260042, a: 0.38039216}
+  m_Color: {r: 0.9716981, g: 0.106947795, b: 0.8260042, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -169,6 +201,18 @@ PrefabInstance:
       propertyPath: _hitBox
       value: 
       objectReference: {fileID: 4747954148465103768}
+    - target: {fileID: 5279608296018718617, guid: 3e255b4c95f03684b97f5d3cae0f5de8, type: 3}
+      propertyPath: rotateCenter
+      value: 
+      objectReference: {fileID: 5220910306824910648}
+    - target: {fileID: 5279608296018718617, guid: 3e255b4c95f03684b97f5d3cae0f5de8, type: 3}
+      propertyPath: sumonCreature
+      value: 
+      objectReference: {fileID: 2642030275376930580, guid: 44c893bd6a66d8e48bb13e4d6a9d020d, type: 3}
+    - target: {fileID: 5279608296018718617, guid: 3e255b4c95f03684b97f5d3cae0f5de8, type: 3}
+      propertyPath: angularVelocity
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 5279608296018718619, guid: 3e255b4c95f03684b97f5d3cae0f5de8, type: 3}
       propertyPath: m_RootOrder
       value: 0

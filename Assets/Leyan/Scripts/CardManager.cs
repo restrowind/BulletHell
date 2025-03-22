@@ -96,7 +96,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Sender _sender;
 
     [SerializeField] private bool nextCardDouble = false;
-    [SerializeField] private ActiveSkill _activeSkill;
+    public ActiveSkill _activeSkill;
 
     public struct BuffIDRoundsPair
     {
@@ -210,6 +210,11 @@ public class CardManager : MonoBehaviour
         CardInstance card13 = new CardInstance();
         CardInstance card14 = new CardInstance();
         CardInstance card15 = new CardInstance();
+        CardInstance card16 = new CardInstance();
+        CardInstance card17 = new CardInstance();
+        CardInstance card18 = new CardInstance();
+        CardInstance card19 = new CardInstance();
+        CardInstance card20 = new CardInstance();
         card1.InitCard(12);
         card2.InitCard(12);
         card3.InitCard(12);
@@ -217,14 +222,14 @@ public class CardManager : MonoBehaviour
         card5.InitCard(12);
         card6.InitCard(12);
         card7.InitCard(12);
-        card8.InitCard(13);
-        card9.InitCard(13);
-        card10.InitCard(13);
-        card11.InitCard(13);
-        card12.InitCard(13);
-        card13.InitCard(18);
-        card14.InitCard(19);
-        card15.InitCard(20);
+        card8.InitCard(14);
+        card9.InitCard(14);
+        card10.InitCard(14);
+        card11.InitCard(14);
+        card12.InitCard(14);
+        card13.InitCard(14);
+        card14.InitCard(14);
+        card15.InitCard(14);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -253,6 +258,10 @@ public class CardManager : MonoBehaviour
     private void Update()
     {
         HandleHandPilePosition();
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            _player.AddSumon(1);
+        }
     }
     public bool TryPlayCard(HandCardUIInstance card)
     {
@@ -427,46 +436,56 @@ public class CardManager : MonoBehaviour
                 DrawCards(2);
                 break;
             case 3:
-                LoadARoundsBuff(()=> {
+                LoadARoundsBuff(() =>
+                {
                     _boss.bossCountDown.MultipleLengthReduceRate(0.8f);
                     _player.MultipleCollectEnhance(1.25f);
-                }, () => {
-                    _boss.bossCountDown.MultipleLengthReduceRate(1.25f); 
-                    _player.MultipleCollectEnhance(0.8f); 
-                },1,1);
+                }, () =>
+                {
+                    _boss.bossCountDown.MultipleLengthReduceRate(1.25f);
+                    _player.MultipleCollectEnhance(0.8f);
+                }, 1, 1);
                 break;
             case 4:
                 nextCardDouble = true;
                 break;
             case 5:
-                LoadARoundsBuff(() => {
+                LoadARoundsBuff(() =>
+                {
                     _sender.MultipleIntervalRate(1.25f);
-                }, () => {
+                }, () =>
+                {
                     _sender.MultipleIntervalRate(0.8f);
                 }, 5, 1);
                 break;
 
             case 6:
-                LoadARoundsBuff(() => {
+                LoadARoundsBuff(() =>
+                {
                     _player.MultiplaeInvincibleTime(2f);
-                }, () => {
+                }, () =>
+                {
                     _player.MultiplaeInvincibleTime(0.5f);
                 }, 4, 2);
                 break;
             case 7:
-                _boss.DealDamage(10f*usedAqua);
+                _boss.DealDamage(10f * usedAqua);
                 break;
             case 8:
-                LoadARoundsBuff(() => {
+                LoadARoundsBuff(() =>
+                {
                     _boss.MultiplaDamageRate(2f);
-                }, () => {
+                }, () =>
+                {
                     _boss.MultiplaDamageRate(0.5f);
                 }, 2, 1);
                 break;
             case 9:
-                LoadARoundsBuff(() => {
+                LoadARoundsBuff(() =>
+                {
                     battleManager.BulletOverResolution += Buff6Action;
-                }, () => {
+                }, () =>
+                {
                     battleManager.BulletOverResolution -= Buff6Action;
                 }, 6, 1);
                 break;
@@ -479,19 +498,56 @@ public class CardManager : MonoBehaviour
                 _player.HealByAbs(20);
                 break;
             case 12:
-                _activeSkill.LoadActiveSkill(1, 1);
+                _activeSkill.LoadActiveSkill(1, 1, () =>
+                {
+                    _sender.ClearAllBullets();
+                    _player.HealByAbs(20);
+                });
                 break;
             case 13:
-                _activeSkill.LoadActiveSkill(2, 1);
+                _activeSkill.LoadActiveSkill(2, 1, () =>
+                {
+                    _player.InvincibleForAWhile(10f);
+                });
+                break;
+            case 14:
+                _player.AddSumon(ResourceCollection.vitality);
+                usedLumen += ResourceCollection.vitality;
+                ResourceCollection.vitality = 0;
+                break;
+            case 15:
+
+                LoadARoundsBuff(() =>
+                {
+                    sumonGiveBackDamageRate = 1f;
+                }, () =>
+                {
+                    sumonGiveBackDamageRate=0f;
+                }, 8, 1);
+                break;
+            case 16:
+                _boss.DealDamage(10f * _player.sumonCreatureCount);
+                break;
+            case 17:
+
+                LoadARoundsBuff(() =>
+                {
+                    _player.SetgiveBackDamageRate(2);
+                }, () =>
+                {
+                    _player.SetgiveBackDamageRate(0);
+                }, 7, 1);
                 break;
             case 18:
                 _player.HealByWoundPercentage(0.5f);
                 break;
             case 19:
-                LoadARoundsBuff(() => {
+                LoadARoundsBuff(() =>
+                {
                     _player.MultipleTakeDamage(2f);
                     _player.MultipleCollectEnhance(2f);
-                }, () => {
+                }, () =>
+                {
                     _player.MultipleTakeDamage(0.5f);
                     _player.MultipleCollectEnhance(0.5f);
                 }, 3, 1);
@@ -504,6 +560,8 @@ public class CardManager : MonoBehaviour
         }
         yield break;
     }
+
+    public float sumonGiveBackDamageRate = 0;
 
     public void ClearUsedElement()
     {

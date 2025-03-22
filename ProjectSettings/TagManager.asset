@@ -6,6 +6,7 @@ TagManager:
   tags:
   - "\u6536\u96C6\u5143\u7D20"
   - PlayerHitBox
+  - SumonCreature
   layers:
   - Default
   - TransparentFX

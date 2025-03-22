@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: 20
   cardName: 'Light <br>     Infusion '
-  cardArtwork: {fileID: 21300000, guid: 1f21190ca9d1e8540b2a3a2e46002685, type: 3}
+  cardArtwork: {fileID: 21300000, guid: 9a0513d63d5e6bc418a6f2e2fc79a93c, type: 3}
   description: 'Consume all light elements, restore 10 HP per element '
   cost:
     aqua: 0
@@ -22,4 +22,5 @@ MonoBehaviour:
     vitality: 0
   cardType: 0
   rarity: 0
+  elementType: 2
   effects: []

@@ -26,7 +26,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float timer;
     public Image img;
 
-
+    [SerializeField] private Image HPUI;
     private float currentHP;
     [SerializeField] float maxHP;
     [SerializeField] private float takeDamageRate = 1f;
@@ -42,7 +42,19 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private Transform _hitBox;
     private Vector3 hitBoxDeltaPos;
 
-   
+    [SerializeField] private GameObject sumonCreature;
+    public int sumonCreatureCount;
+    private float currentRotation;
+    [SerializeField] private float angularVelocity;
+    private List<SumonCreature> creaturesList = new List<SumonCreature>();
+
+    [SerializeField] private Transform rotateCenter;
+
+
+    public void InvincibleForAWhile(float duration)
+    {
+        invincibleTimer = 10f;
+    }
 
     private void HandleInvincibleTimer()
     {
@@ -117,6 +129,7 @@ public class PlayerCharacter : MonoBehaviour
         playerSprite.material.SetFloat("_FlashAmount", 0f); // ✅ 默认不闪白
 
         hitBoxDeltaPos=_hitBox.position-transform.position;
+        currentRotation = 0;
     }
 
     private void InitData()
@@ -164,17 +177,26 @@ public class PlayerCharacter : MonoBehaviour
 
             UpdateHitBoxPosition();
 
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CardManager.Instance._activeSkill.ActivateSkill();
+            }
+
         }
+        currentRotation += angularVelocity * Time.deltaTime;
+        SmoothToTarget();
     }
 
     private void UpdateHitBoxPosition()
     {
         _hitBox.position = transform.position+ hitBoxDeltaPos;
+        rotateCenter.position = transform.position;
     }
 
     private void UpdateHPUI()
     {
         hpText.text = "HP: " + currentHP.ToString();
+        HPUI.fillAmount = currentHP / maxHP;
     }
 
     void UpdateAnimation()
@@ -488,5 +510,27 @@ public class PlayerCharacter : MonoBehaviour
             yield return new WaitForSeconds(interval * 0.5f);
         }
     }
+    public void SetgiveBackDamageRate(float rate)
+    {
+        giveBackDamageRate = rate;
+    }
+
+    private void SmoothToTarget()
+    {
+        for(int i=0;i< creaturesList.Count;i++)
+        {
+            float _rotation = currentRotation + (float)i / (float)creaturesList.Count * 360;
+            creaturesList[i].SetTargetRotation(_rotation);
+        }
+    }
+
+    public void AddSumon(int round)
+    {
+        SumonCreature creature = Instantiate(sumonCreature,transform.position,Quaternion.identity, rotateCenter).GetComponent<SumonCreature>();
+        creature.Init(round);
+        creaturesList.Add(creature);
+    }
+
+
 
 }

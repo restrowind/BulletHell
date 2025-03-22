@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: "015\u672A"
   m_EditorClassIdentifier: 
   cardID: 15
-  cardName: 'Photo <br>    synthesis '
+  cardName: 'Tidal <br>      Bond '
   cardArtwork: {fileID: 21300000, guid: 7d1057aa08f30714bb925b7be73ed75b, type: 3}
-  description: 'Restore 20 HP '
+  description: 'Discard 2 cards, summon a Marine Unit (lasts 2 turns) '
   cost:
     aqua: 0
     lumen: 2

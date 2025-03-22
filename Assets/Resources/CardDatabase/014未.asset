@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: "014\u672A"
   m_EditorClassIdentifier: 
   cardID: 14
-  cardName: 'Photo <br>    synthesis '
+  cardName: 'Vital <br>     Surge '
   cardArtwork: {fileID: 21300000, guid: b074c686c4d6e71418f5737ad1d4f62d, type: 3}
-  description: 'Restore 20 HP '
+  description: 'Summon a Marine Unit (orbits player, blocks bullets, lasts X turns) '
   cost:
     aqua: 0
     lumen: 2
     vitality: 0
   cardType: 0
   rarity: 0
-  elementType: 1
+  elementType: 0
   effects: []
