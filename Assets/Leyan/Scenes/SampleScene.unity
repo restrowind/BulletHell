@@ -1214,6 +1214,7 @@ MonoBehaviour:
   maxHandCount: 12
   HandPileMainUI: {fileID: 1654991663}
   testDrawCard: 3
+  currentCardState: 3
   handPileArea: {fileID: 1654991666}
   hiddenHandPileY: 0
   handPileSmoothSpeed: 8
@@ -1221,6 +1222,13 @@ MonoBehaviour:
   tipBoardPfb: {fileID: 8700058401683820085, guid: 3f224161b7ccf564b9099001cc41c7a6, type: 3}
   cardSystemCanvas: {fileID: 256733920}
   discardPage: {fileID: 1706022090}
+  _boss: {fileID: 0}
+  _player: {fileID: 0}
+  _collection: {fileID: 0}
+  _sender: {fileID: 0}
+  nextCardDouble: 0
+  _activeSkill: {fileID: 0}
+  sumonGiveBackDamageRate: 0
 --- !u!4 &1242822021
 Transform:
   m_ObjectHideFlags: 0
@@ -1265,6 +1273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857b71c737db36e438068d3268908227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentState: 0
   _cardManager: {fileID: 1242822020}
   fistDrawCardCount: 2
   everyTimeDrawCardCount: 6
@@ -1275,6 +1284,15 @@ MonoBehaviour:
   stateText: {fileID: 454705697}
   stateDisplayUI: {fileID: 902576842}
   StopPlayButton: {fileID: 1687356060}
+  gameController: {fileID: 0}
+  player: {fileID: 0}
+  _boss: {fileID: 0}
+  hiddenPos: {x: 0, y: 0, z: 0}
+  showPos: {x: 0, y: 0, z: 0}
+  hidden: 0
+  smoothSpeed: 10
+  playerShowPos: {x: 0, y: 0, z: 0}
+  mapLoader: {fileID: 0}
 --- !u!4 &1325542218
 Transform:
   m_ObjectHideFlags: 0
