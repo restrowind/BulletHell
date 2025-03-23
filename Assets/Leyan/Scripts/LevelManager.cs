@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class LevelManager : MonoBehaviour
     [Header("UI 过场设置")]
     public CanvasGroup blackoutCanvas; // 子物体上的黑幕Canvas（含 Image + CanvasGroup）
     public float fadeDuration = 0.5f;
+
+    public int levelIndex = 0;
+    public bool choosingCard = false;
 
     private void Awake()
     {
@@ -21,6 +25,30 @@ public class LevelManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    public void LoadNextLevel()
+    {
+        if(levelIndex==0)
+        {
+            levelIndex = 1;
+            LoadLevel("Level1");
+        }
+        else
+        {
+            if (!choosingCard)
+            {
+                Destroy(BattleManager.Instance.gameObject);
+                Destroy(CardManager.Instance.gameObject);
+                choosingCard = true;
+                LoadLevel("ChooseCardScene");
+            }
+            else
+            {
+                choosingCard = false;
+                levelIndex++;
+                LoadLevel("Level"+ levelIndex.ToString());
+            }
         }
     }
 
@@ -64,5 +92,13 @@ public class LevelManager : MonoBehaviour
 
         blackoutCanvas.alpha = targetAlpha;
         blackoutCanvas.blocksRaycasts = targetAlpha > 0.5f;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            LoadNextLevel();
+        }
     }
 }

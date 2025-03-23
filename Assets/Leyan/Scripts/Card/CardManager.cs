@@ -258,10 +258,10 @@ public class CardManager : MonoBehaviour
     private void Update()
     {
         HandleHandPilePosition();
-        if(Input.GetKeyDown(KeyCode.Backspace))
+        /*if(Input.GetKeyDown(KeyCode.Backspace))
         {
             _player.AddSumon(1);
-        }
+        }*/
     }
     public bool TryPlayCard(HandCardUIInstance card)
     {

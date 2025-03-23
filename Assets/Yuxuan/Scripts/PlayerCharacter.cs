@@ -421,7 +421,8 @@ public class PlayerCharacter : MonoBehaviour
         {
             playerCharacterPause = true;
             timer = currentCollectTime;
-            rb.velocity = Vector2.zero;
+            if(rb)
+                rb.velocity = Vector2.zero;
             moveInput = Vector2.zero;
             UpdateAnimation();
             img.fillAmount = 1;

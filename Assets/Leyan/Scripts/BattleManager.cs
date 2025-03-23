@@ -249,6 +249,10 @@ public class BattleManager : MonoBehaviour
 
     private void MoveToTarget()
     {
+        if (!mainCamera)
+        {
+            mainCamera = Camera.main.transform;
+        }
         if (hidden)
         {
             mainCamera.position = Vector3.Lerp(mainCamera.position, hiddenPos, Time.deltaTime * smoothSpeed);
@@ -261,13 +265,16 @@ public class BattleManager : MonoBehaviour
     public void SetHidden(bool isHidden)
     {
         hidden = isHidden;
-        if(hidden)
+        if (player)
         {
-            player.transform.position = mapLoader.bornPos;
-        }
-        else
-        {
-            //player.transform.position = playerShowPos;
+            if (hidden)
+            {
+                player.transform.position = mapLoader.bornPos;
+            }
+            else
+            {
+                //player.transform.position = playerShowPos;
+            }
         }
     }
 
