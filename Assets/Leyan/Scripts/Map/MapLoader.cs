@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapLoader : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MapLoader : MonoBehaviour
 
     private float hexWidth;
     private float hexHeight;
+    public Vector3 bornPos;
 
     private void Start()
     {
@@ -23,15 +25,30 @@ public class MapLoader : MonoBehaviour
         hexWidth = hexSize; // 水平间距 = 单元宽度
         hexHeight = Mathf.Sqrt(3) * 0.5f * hexSize; // 垂直间距 = (√3 / 2) * 单元宽度
 
-        for (int x = 0; x < mapData.cols; x++)
+        for (int x = -1; x < mapData.cols+1; x++)
         {
-            for (int y = 0; y < mapData.rows; y++)
+            for (int y = -1; y < mapData.rows+1; y++)
             {
-                int tileType = mapData.GetGridValue(y, x);
-                if (tileType >= 0 && tileType < tilePrefabs.Length)
+                if (x == -1 || y == -1|| y== mapData.rows + 1 || x == mapData.cols + 1)
                 {
                     Vector3 position = CalculateHexPosition(x, y);
-                    Instantiate(tilePrefabs[tileType], position, Quaternion.identity, transform);
+                    Instantiate(tilePrefabs[0], position, Quaternion.identity, transform);
+
+                }
+                else
+                {
+                    int tileType = mapData.GetGridValue(y, x);
+                    if (tileType >= 0 && tileType < tilePrefabs.Length)
+                    {
+                        Vector3 position = CalculateHexPosition(x, y);
+                        Instantiate(tilePrefabs[tileType], position, Quaternion.identity, transform);
+                    }
+                    else
+                    {
+                        Vector3 position = CalculateHexPosition(x, y);
+                        var tmp=Instantiate(tilePrefabs[4], position, Quaternion.identity, transform);
+                        bornPos = tmp.transform.position;
+                    }
                 }
             }
         }

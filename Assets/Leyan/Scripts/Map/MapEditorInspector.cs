@@ -7,7 +7,7 @@ using System.Diagnostics;
 public class MapEditorInspector : Editor
 {
     private MapEditor mapEditor;
-    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green, Color.black };
+    private Color[] colors = { Color.gray, Color.blue, Color.yellow, Color.green, Color.black, new Color(0.6f, 0f, 0.8f) };
     private const float cellSize = 30f;
     private const float padding = 2f;
     private bool isHolding = false;

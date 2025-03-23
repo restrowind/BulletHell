@@ -18,6 +18,7 @@ MonoBehaviour:
   AngularVelocity: -45
   AngularAcceleration: 5
   MaxVelocity: 2.1474836e+9
+  FacePlayerOnFire: 0
   SenderAngularVelocity: 0
   SenderMaxAngularVelocity: 0
   SenderAccleration: 0
@@ -27,4 +28,4 @@ MonoBehaviour:
   Damage: 1
   isTrack: 0
   trackTime: 0
-  Prefabs: {fileID: 5650471220772229291, guid: f4ed78463042e8b49a828bfd87deefba, type: 3}
+  Prefabs: {fileID: 5650471220772229291, guid: af9fb52ad13677b43a3430e4af3c4de3, type: 3}

@@ -50,6 +50,8 @@ public class PlayerCharacter : MonoBehaviour
 
     [SerializeField] private Transform rotateCenter;
 
+    private Vector3 pausePosition;
+
 
     public void InvincibleForAWhile(float duration)
     {

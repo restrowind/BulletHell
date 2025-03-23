@@ -53,7 +53,7 @@ public class MapEditor : ScriptableObject
         {
             return 0;
         }
-        return Mathf.Clamp(gridData[row].row[col], 0, 4);
+        return Mathf.Clamp(gridData[row].row[col], 0, 5);
     }
 
     public void SetGridValue(int row, int col, int value)
@@ -70,7 +70,7 @@ public class MapEditor : ScriptableObject
         }
         if (gridData[row].row[col] != value)
         {
-            gridData[row].row[col] = Mathf.Clamp(value, 0, 4);
+            gridData[row].row[col] = Mathf.Clamp(value, 0, 5);
             SaveGridData();
         }
     }

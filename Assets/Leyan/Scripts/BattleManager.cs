@@ -45,10 +45,21 @@ public class BattleManager : MonoBehaviour
 
     public event Action PlayCardOver;
     public event Action BulletOverResolution;
+    [SerializeField] private Boss _boss;
+
+
+    [SerializeField] private Vector3 hiddenPos;
+    [SerializeField] private Vector3 showPos;
+    [SerializeField] private bool hidden = false;
+    [SerializeField] private float smoothSpeed = 10f;
+    private Transform mainCamera;
+    [SerializeField] private Vector3 playerShowPos;
+    [SerializeField] private MapLoader mapLoader;
 
     void Start()
     {
         Invoke("StartToStart", 0.8f);
+        mainCamera = Camera.main.transform;
     }
 
     private void Awake()
@@ -93,6 +104,7 @@ public class BattleManager : MonoBehaviour
 
                 break;
         }
+        MoveToTarget();
     }
 
     public void StartToStart()
@@ -102,6 +114,7 @@ public class BattleManager : MonoBehaviour
 
     public void ChangeState(BattleState newState)
     {
+        SetHidden(false);
         Debug.Log("ÒÆ¶¯µ½" + newState.ToString() + "½×¶Î");
         _currentState = newState;
         DisplayState();
@@ -123,6 +136,7 @@ public class BattleManager : MonoBehaviour
                 _cardManager.SetCardState(CardState.Bullet);
                 //Invoke("MoveToNextState", testBulletDuration);
                 player.SetPlayerPause(false);
+                SetHidden(true);
                 if (roundCount == 0)
                 {
                     gameController.SetGameState(BattleState.BulletPhase);
@@ -139,6 +153,7 @@ public class BattleManager : MonoBehaviour
                 _cardManager.SetCardState(CardState.Play);
                 player.SetPlayerPause(true);
                 StopPlayButton.Play("StopPlayButtonAppear");
+                SetHidden(false);
                 break;
             case BattleState.DiscardPhase:
                 _cardManager.ExecuteDiscardPhase();
@@ -230,6 +245,30 @@ public class BattleManager : MonoBehaviour
     {
         ChangeState(BattleState.DiscardPhase);
         StopPlayButton.Play("StopPlayButtonFade");
+    }
+
+    private void MoveToTarget()
+    {
+        if (hidden)
+        {
+            mainCamera.position = Vector3.Lerp(mainCamera.position, hiddenPos, Time.deltaTime * smoothSpeed);
+        }
+        else
+        {
+            mainCamera.position = Vector3.Lerp(mainCamera.position, showPos, Time.deltaTime * smoothSpeed);
+        }
+    }
+    public void SetHidden(bool isHidden)
+    {
+        hidden = isHidden;
+        if(hidden)
+        {
+            player.transform.position = mapLoader.bornPos;
+        }
+        else
+        {
+            //player.transform.position = playerShowPos;
+        }
     }
 
 }

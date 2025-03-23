@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour
 
     private float displayFillAmount;
     [SerializeField] private float fillSmoothSpeed = 2f;
-    [SerializeField] private float extraDamageRate = 1f; 
+    [SerializeField] private float extraDamageRate = 1f;
 
     public void DealDamage(float damage)
     {
@@ -36,6 +36,7 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        
     }
 
     public void MultiplaDamageRate(float rate)
@@ -43,4 +44,5 @@ public class Boss : MonoBehaviour
         extraDamageRate *= rate;
     }
 
+    
 }
