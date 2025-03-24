@@ -17,7 +17,7 @@ MonoBehaviour:
   cardArtwork: {fileID: 21300000, guid: 1b6cd802016fdf5429fec4ebfb3012d2, type: 3}
   description: Next bullet phase has 20% lower density
   cost:
-    aqua: 0
+    aqua: 1
     lumen: 0
     vitality: 2
   cardType: 1

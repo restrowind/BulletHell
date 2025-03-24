@@ -19,7 +19,7 @@ MonoBehaviour:
   cost:
     aqua: 0
     lumen: 0
-    vitality: 3
+    vitality: 2
   cardType: 1
   rarity: 0
   elementType: 0

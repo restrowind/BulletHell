@@ -17,9 +17,9 @@ MonoBehaviour:
   cardArtwork: {fileID: 21300000, guid: 7a84efaf0cfe97a4bbc35ca451695ee5, type: 3}
   description: "Deal damage equal to 5\xD7 the number of Aqua used this turn"
   cost:
-    aqua: 0
+    aqua: 1
     lumen: 0
-    vitality: 3
+    vitality: 1
   cardType: 1
   rarity: 0
   elementType: 0

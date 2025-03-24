@@ -17,8 +17,8 @@ MonoBehaviour:
   cardArtwork: {fileID: 21300000, guid: 20aa0b105ff35c24e97ccb796d5e7c4c, type: 3}
   description: Each sea beast deals 20 damage to the enemy
   cost:
-    aqua: 0
-    lumen: 2
+    aqua: 2
+    lumen: 1
     vitality: 0
   cardType: 0
   rarity: 0

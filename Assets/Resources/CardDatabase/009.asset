@@ -18,9 +18,9 @@ MonoBehaviour:
   description: If no damage is taken during the next bullet phase, deal 50 damage
     to the enemy after it ends
   cost:
-    aqua: 3
+    aqua: 2
     lumen: 0
-    vitality: 0
+    vitality: 1
   cardType: 1
   rarity: 0
   elementType: 0

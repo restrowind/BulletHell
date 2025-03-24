@@ -18,8 +18,8 @@ MonoBehaviour:
   description: 'Consume all lumen elements, restore 10 HP per element '
   cost:
     aqua: 0
-    lumen: 2
-    vitality: 0
+    lumen: 1
+    vitality: 1
   cardType: 0
   rarity: 0
   elementType: 2

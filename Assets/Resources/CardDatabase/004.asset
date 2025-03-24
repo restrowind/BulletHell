@@ -18,8 +18,8 @@ MonoBehaviour:
   description: 'Next card played this turn triggers twice '
   cost:
     aqua: 0
-    lumen: 0
-    vitality: 3
+    lumen: 1
+    vitality: 2
   cardType: 1
   rarity: 0
   elementType: 0

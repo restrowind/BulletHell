@@ -18,9 +18,9 @@ MonoBehaviour:
   description: During the next bullet phase, whenever the sea beast takes damage,
     return it to the enemy
   cost:
-    aqua: 0
-    lumen: 2
-    vitality: 0
+    aqua: 1
+    lumen: 0
+    vitality: 2
   cardType: 0
   rarity: 0
   elementType: 0

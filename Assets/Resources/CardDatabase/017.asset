@@ -18,9 +18,9 @@ MonoBehaviour:
   description: During the next bullet phase, each time you take damage, return double
     that amount to the Boss
   cost:
-    aqua: 0
-    lumen: 2
-    vitality: 0
+    aqua: 2
+    lumen: 0
+    vitality: 1
   cardType: 0
   rarity: 0
   elementType: 2

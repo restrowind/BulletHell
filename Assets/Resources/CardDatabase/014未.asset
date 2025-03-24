@@ -18,9 +18,9 @@ MonoBehaviour:
   description: Consume all X Vitality to summon a sea beast that orbits the player
     and blocks bullets for X turns.
   cost:
-    aqua: 0
-    lumen: 2
-    vitality: 0
+    aqua: 1
+    lumen: 1
+    vitality: 1
   cardType: 0
   rarity: 0
   elementType: 0
