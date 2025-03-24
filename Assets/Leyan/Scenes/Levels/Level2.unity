@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9c697e9d8931747ba6e4714478ca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: 58f17bcd8866fe746993f187d19fda50, type: 2}
+  mapData: {fileID: 11400000, guid: 3ec00b268c1a1d848bd084ecdf0c590b, type: 2}
   tilePrefabs:
   - {fileID: 4943793770366817233, guid: 48a87a5a5e997a4438ceabbc0a7d5dcb, type: 3}
   - {fileID: 5684966385122329566, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
