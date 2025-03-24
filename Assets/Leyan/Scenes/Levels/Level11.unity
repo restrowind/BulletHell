@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9c697e9d8931747ba6e4714478ca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: f667c45f99d58c54590e839330e16452, type: 2}
+  mapData: {fileID: 11400000, guid: 357a864391ee03f48b319a4c8ac0eaa6, type: 2}
   tilePrefabs:
   - {fileID: 4943793770366817233, guid: 48a87a5a5e997a4438ceabbc0a7d5dcb, type: 3}
   - {fileID: 5684966385122329566, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
@@ -2539,7 +2539,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: e21d2c6acc5a213409db9b97cd1fcd9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b4329df2bd60cf4484adbbeb527381e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3822,13 +3822,13 @@ MonoBehaviour:
       bullet: {fileID: 11400000, guid: d39ac0d81c5c0c943bd039f2f7f689e9, type: 2}
       spawnTime: 0
       destroyTime: 5
-      spawnPosition: {x: -8, y: 5.17, z: 0}
+      spawnPosition: {x: -4, y: 5.17, z: 0}
       rotation: 0
     - prefab: {fileID: 268584479}
       bullet: {fileID: 11400000, guid: 230feafb178985a4a9ae98b7c5be9400, type: 2}
       spawnTime: 0
       destroyTime: 5
-      spawnPosition: {x: 8, y: -5.17, z: 0}
+      spawnPosition: {x: 4, y: -5.17, z: 0}
       rotation: 180
     - prefab: {fileID: 268584479}
       bullet: {fileID: 11400000, guid: b04f8beaaf5eadd4faa28be73bf4c337, type: 2}

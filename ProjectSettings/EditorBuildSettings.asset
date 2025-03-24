@@ -9,18 +9,12 @@ EditorBuildSettings:
     path: Assets/Leyan/Scenes/StartLevel.unity
     guid: ca22c6dbdb397694fb8f041c9b3e17b7
   - enabled: 1
-    path: Assets/Leyan/Scenes/Levels/Level1.unity
+    path: Assets/Leyan/Scenes/Levels/Level11.unity
     guid: 2d27d395b2ba43a4d9a1a3523dbcea7a
-  - enabled: 1
-    path: Assets/Leyan/Scenes/Levels/Level2.unity
-    guid: 1a22efd2ea1f54a4797c86b85ba39441
-  - enabled: 1
-    path: Assets/Leyan/Scenes/Levels/Level3.unity
-    guid: 5fdf1fdc013d1f140bf9616236ca220a
-  - enabled: 1
-    path: Assets/Leyan/Scenes/Levels/Level4.unity
-    guid: e9d64b5e04a8c6947876c814fc829326
   - enabled: 1
     path: Assets/Leyan/Scenes/ChooseCardScene.unity
     guid: a48ff54e825a144419f7bd9377d438e2
+  - enabled: 1
+    path: Assets/Leyan/Scenes/Levels/Level1.unity
+    guid: ce648efa271181b4db2c8c0ba85bd5ae
   m_configObjects: {}

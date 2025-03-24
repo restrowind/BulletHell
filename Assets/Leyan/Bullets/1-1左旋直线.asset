@@ -18,6 +18,7 @@ MonoBehaviour:
   AngularVelocity: 0
   AngularAcceleration: 0
   MaxVelocity: 2.1474836e+9
+  FacePlayerOnFire: 0
   SenderAngularVelocity: 180
   SenderMaxAngularVelocity: 180
   SenderAccleration: -30
@@ -27,4 +28,9 @@ MonoBehaviour:
   Damage: 1
   isTrack: 0
   trackTime: 1
-  Prefabs: {fileID: 5650471220772229291, guid: f4ed78463042e8b49a828bfd87deefba, type: 3}
+  Prefabs: {fileID: 5650471220772229291, guid: 99d13882524dbaf44bb9ddeda8566005, type: 3}
+  trackRotationSpeed: 360
+  SenderMoveDirection: {x: 0, y: 0}
+  SenderMoveSpeed: 0
+  SenderMoveAcceleration: 0
+  SenderMaxMoveSpeed: Infinity
