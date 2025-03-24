@@ -25,8 +25,12 @@ MonoBehaviour:
   Count: 1
   LineAngle: 0
   SendInterval: 0.5
-  Damage: 1
+  Damage: 4
   isTrack: 1
   trackTime: 0.3
   Prefabs: {fileID: 5650471220772229291, guid: 34e73a183a34f014dbc94abe2c583344, type: 3}
   trackRotationSpeed: 60
+  SenderMoveDirection: {x: 0, y: 0}
+  SenderMoveSpeed: 0
+  SenderMoveAcceleration: 0
+  SenderMaxMoveSpeed: Infinity

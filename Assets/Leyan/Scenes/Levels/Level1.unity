@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9c697e9d8931747ba6e4714478ca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: 50cc3b69015564e439c23e91699ca01a, type: 2}
+  mapData: {fileID: 11400000, guid: 1b94222f996f25a448f7b74a23f389b7, type: 2}
   tilePrefabs:
   - {fileID: 4943793770366817233, guid: 48a87a5a5e997a4438ceabbc0a7d5dcb, type: 3}
   - {fileID: 5684966385122329566, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
@@ -2579,6 +2579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   bossCountDown: {fileID: 866014664}
   HPBar: {fileID: 1490843643}
   fillSmoothSpeed: 10
@@ -3036,7 +3037,7 @@ MonoBehaviour:
   countDownText: {fileID: 1193460274}
   ReStartBtn: {fileID: 106137433}
   roundCount: 0
-  baseBulletStateTimeLength: 30
+  baseBulletStateTimeLength: 20
   lengthExtraRate: 1
   countDownBar: {fileID: 1801572086}
 --- !u!114 &866014665
@@ -3275,7 +3276,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1041862433}
   - component: {fileID: 1041862432}
-  - component: {fileID: 1041862431}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -3283,23 +3283,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1041862431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041862430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77514c21149bb9d4385d07d32fa510c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 100
-  bossCountDown: {fileID: 866014664}
-  HPBar: {fileID: 1490843643}
-  fillSmoothSpeed: 10
-  extraDamageRate: 1
 --- !u!212 &1041862432
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4167,6 +4150,7 @@ MonoBehaviour:
   _sender: {fileID: 268584480}
   nextCardDouble: 0
   _activeSkill: {fileID: 818037209}
+  cardConfig: 0100000001000000010000000200000003000000040000000500000006000000070000000a000000
   sumonGiveBackDamageRate: 0
 --- !u!4 &1242822021
 Transform:
@@ -6780,7 +6764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8380448097141463639, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}
       propertyPath: baseCollectTime
-      value: 1.6
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea188ba7935407499da2dfddd8a54f1, type: 3}

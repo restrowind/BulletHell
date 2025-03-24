@@ -29,26 +29,21 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadNextLevel()
     {
-        if(levelIndex==0)
+        if (levelIndex == 0)
         {
             levelIndex = 1;
             LoadLevel("Level1");
         }
+        else if(levelIndex<3)
+        {
+
+            levelIndex++;
+            LoadLevel("Level" + levelIndex.ToString());
+
+        }
         else
         {
-            if (!choosingCard)
-            {
-                Destroy(BattleManager.Instance.gameObject);
-                Destroy(CardManager.Instance.gameObject);
-                choosingCard = true;
-                LoadLevel("ChooseCardScene");
-            }
-            else
-            {
-                choosingCard = false;
-                levelIndex++;
-                LoadLevel("Level"+ levelIndex.ToString());
-            }
+            LoadLevel("StartLevel");
         }
     }
 

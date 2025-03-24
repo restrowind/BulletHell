@@ -98,6 +98,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] private bool nextCardDouble = false;
     public ActiveSkill _activeSkill;
 
+    public List<int> cardConfig;
+
     public struct BuffIDRoundsPair
     {
         public BuffIDRoundsPair(int id,int rounds,Action stop)
@@ -194,6 +196,13 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
+
+        foreach(int index in cardConfig)
+        {
+            CardInstance tmpcard = new CardInstance();
+            tmpcard.InitCard(index);
+            initCards.Add(tmpcard);
+        }
         //测试
         CardInstance card1 = new CardInstance();
         CardInstance card2 = new CardInstance();
@@ -215,24 +224,24 @@ public class CardManager : MonoBehaviour
         CardInstance card18 = new CardInstance();
         CardInstance card19 = new CardInstance();
         CardInstance card20 = new CardInstance();
-        card1.InitCard(1);
+        /*card1.InitCard(1);
         card2.InitCard(1);
         card3.InitCard(1);
         card4.InitCard(2);
-        card5.InitCard(3);
+        card5.InitCard(2);
         card6.InitCard(4);
-        card7.InitCard(5);
-        card8.InitCard(8);
+        card7.InitCard(15);
+        card8.InitCard(14);
         card9.InitCard(11);
-        card10.InitCard(11);
+        card10.InitCard(14);
         card11.InitCard(12);
         card12.InitCard(14);
         card13.InitCard(14);
         card14.InitCard(14);
         card15.InitCard(15);
         card16.InitCard(15);
-        card17.InitCard(16);
-        card18.InitCard(16);
+        card17.InitCard(14);
+        card18.InitCard(14);
         card19.InitCard(16);
         card20.InitCard(18);
         initCards.Add(card1);
@@ -254,7 +263,7 @@ public class CardManager : MonoBehaviour
         initCards.Add(card17);
         initCards.Add(card18);
         initCards.Add(card19);
-        initCards.Add(card20);
+        initCards.Add(card20);*/
 
         //测试
         initCardsManagerForCombat();

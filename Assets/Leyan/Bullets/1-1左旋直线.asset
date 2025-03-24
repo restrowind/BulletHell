@@ -25,7 +25,7 @@ MonoBehaviour:
   Count: 1
   LineAngle: 0
   SendInterval: 0.1
-  Damage: 1
+  Damage: 3
   isTrack: 0
   trackTime: 1
   Prefabs: {fileID: 5650471220772229291, guid: 99d13882524dbaf44bb9ddeda8566005, type: 3}

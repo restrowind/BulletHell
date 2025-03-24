@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private float maxHP;
-    private float currentHP;
+    [SerializeField] private float currentHP;
     private int displayedHP => (int)currentHP;
 
     public BossCountDown bossCountDown;
@@ -30,6 +30,8 @@ public class Boss : MonoBehaviour
     {
         displayFillAmount = Mathf.Lerp(displayFillAmount, currentHP / maxHP, Time.deltaTime * fillSmoothSpeed);
         HPBar.fillAmount = displayFillAmount;
+
+        Debug.Log(displayFillAmount);
 
 
     }

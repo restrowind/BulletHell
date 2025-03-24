@@ -244,7 +244,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
     }
 
-    private void PrintCard()
+    public void PrintCard()
     {
         cardArtwork.sprite= cardManager.GetCardByID(counterpartCardInstance.cardID).cardArtwork;
         cardName.text= cardManager.GetCardByID(counterpartCardInstance.cardID).cardName;
