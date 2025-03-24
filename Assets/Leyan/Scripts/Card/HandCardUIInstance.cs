@@ -56,7 +56,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
             //Debug.Log("鼠标悬停在 Image 上");
             mainUI.SetHoverInfo(true, _index);
             mainUI.CalculateCardsPosAndRot();
-            //GlobalAudioPlayer.Instance.Play("CardHover");
+            GlobalAudioPlayer.Instance.Play("CardHover");
         }
     }
 
@@ -79,6 +79,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
             if (_cardState == CardState.Play)
             {
                 SetDragging(true);
+                GlobalAudioPlayer.Instance.Play("ChooseCard");
 
                 if (Input.mousePosition.y > mainUI.playCardY)
                 {
@@ -91,12 +92,14 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
                 if (Input.mousePosition.y > mainUI.playCardY)
                 {
                     SetDiscard(false);
+                    GlobalAudioPlayer.Instance.Play("CancelCard");
                 }
                 else
                 {
                     if (mainUI.canDiscardMore())
                     {
                         SetDiscard(true);
+                        GlobalAudioPlayer.Instance.Play("ChooseCard");
                     }
                     else
                     {
@@ -136,6 +139,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
         SetDragging(true);
+        GlobalAudioPlayer.Instance.Play("ChooseCard");
     }
 
     // 拖动中

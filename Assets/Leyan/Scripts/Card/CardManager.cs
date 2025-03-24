@@ -93,7 +93,7 @@ public class CardManager : MonoBehaviour
 
     public List<BuffIDRoundsPair> roundBuffList= new List<BuffIDRoundsPair>();
 
-    [SerializeField] private Sender _sender;
+    public Sender _sender;
 
     [SerializeField] private bool nextCardDouble = false;
     public ActiveSkill _activeSkill;
@@ -292,6 +292,7 @@ public class CardManager : MonoBehaviour
 
             //执行卡牌效果
             CardInstance executedCard = card.counterpartCardInstance;
+            GlobalAudioPlayer.Instance.Play("UseCard");
             if (nextCardDouble)
             {
                 StartCoroutine(ExecuteCardEffect(executedCard));

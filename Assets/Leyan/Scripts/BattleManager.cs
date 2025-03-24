@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public enum BattleState
 {
@@ -93,9 +94,10 @@ public class BattleManager : MonoBehaviour
                 break;
             case BattleState.PlayCardPhase:
 
+                _cardManager._sender.ClearAllBullets();
                 break;
             case BattleState.DiscardPhase:
-
+                _cardManager._sender.ClearAllBullets();
                 break;
             case BattleState.Conversation:
 

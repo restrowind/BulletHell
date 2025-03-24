@@ -1508,3 +1508,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 36bb36edbabfe804d98f50a8608fb408, type: 3}
   - name: Boom3
     clip: {fileID: 8300000, guid: a1ad8eac4ee8c494787a3d4d7b7f26a9, type: 3}
+  - name: BGM
+    clip: {fileID: 8300000, guid: 65da4618a44ef4a4f9bbd9ee678ba1db, type: 3}

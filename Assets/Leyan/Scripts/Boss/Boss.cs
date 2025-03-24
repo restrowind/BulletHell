@@ -25,6 +25,11 @@ public class Boss : MonoBehaviour
     private void Update()
     {
         UpdateFillBar();
+
+        if(currentHP<=0)
+        {
+            LevelManager.Instance.LoadNextLevel();
+        }
     }
     private void UpdateFillBar()
     {

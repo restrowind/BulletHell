@@ -10,8 +10,8 @@ EditorBuildSettings:
     guid: ca22c6dbdb397694fb8f041c9b3e17b7
   - enabled: 1
     path: Assets/Leyan/Scenes/Levels/Level2.unity
-    guid: 2d27d395b2ba43a4d9a1a3523dbcea7a
-  - enabled: 1
+    guid: 8a3140577041c434d84273513b7cce0a
+  - enabled: 0
     path: Assets/Leyan/Scenes/ChooseCardScene.unity
     guid: a48ff54e825a144419f7bd9377d438e2
   - enabled: 1

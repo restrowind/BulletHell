@@ -82,6 +82,20 @@ public class BulletBehaviour : MonoBehaviour
     {
         StopMovement();
         animator.Play(animName);
+        int random = Random.Range(1, 4);
+        switch(random)
+        {
+            case 1:
+                GlobalAudioPlayer.Instance.Play("Boom1");
+                break;
+            case 2:
+                GlobalAudioPlayer.Instance.Play("Boom1");
+                break;
+            case 3:
+                GlobalAudioPlayer.Instance.Play("Boom1");
+                break;
+        }
+
     }
 
     public void DestroyOneself()

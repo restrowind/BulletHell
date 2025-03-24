@@ -187,6 +187,12 @@ public class PlayerCharacter : MonoBehaviour
         }
         currentRotation += angularVelocity * Time.deltaTime;
         SmoothToTarget();
+
+        if(currentHP<=0)
+        {
+            LevelManager.Instance.LoadLevel("StartLevel");
+        }
+
     }
 
     private void UpdateHitBoxPosition()
@@ -441,17 +447,20 @@ public class PlayerCharacter : MonoBehaviour
     public void HealByAbs(float amount)
     {
         currentHP=Mathf.Min(currentHP+amount, maxHP);
+        GlobalAudioPlayer.Instance.Play("SpecialSkill");
         UpdateHPUI();
     }
 
     public void HealByPercentage(float percentage)
     {
         currentHP = Mathf.Min(currentHP + maxHP* percentage, maxHP);
+        GlobalAudioPlayer.Instance.Play("SpecialSkill");
         UpdateHPUI();
     }
     public void HealByWoundPercentage(float percentage)
     {
         currentHP = currentHP + (maxHP - currentHP) * percentage;
+        GlobalAudioPlayer.Instance.Play("SpecialSkill");
         UpdateHPUI();
     }
 
@@ -470,6 +479,7 @@ public class PlayerCharacter : MonoBehaviour
             invincibleTimer = invincibleTime* extraInvincibleTimeRate;
             damageTakeThisTurn += invincibleTime * extraInvincibleTimeRate;
             CardManager.Instance._boss.DealDamage(giveBackDamageRate * damage * takeDamageRate);
+            GlobalAudioPlayer.Instance.Play("PlayerHit");
         }
     }
 

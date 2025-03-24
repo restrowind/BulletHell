@@ -154,10 +154,12 @@ public class MapEditor : ScriptableObject
 
     private void OnValidate()
     {
+#if UNITY_EDITOR
         if (!Application.isPlaying && !EditorApplication.isUpdating && !EditorApplication.isCompiling)
         {
             EnsureGridInitialized();
             SaveGridData();
         }
+#endif
     }
 }

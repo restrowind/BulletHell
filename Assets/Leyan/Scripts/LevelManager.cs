@@ -25,6 +25,13 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Invoke("PlayBGM",0.1f);
+    }
+
+    public void PlayBGM()
+    {
+        GlobalAudioPlayer.Instance.Play("BGM", true);
     }
     public void LoadNextLevel()
     {
