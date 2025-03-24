@@ -151,12 +151,8 @@ public class MapEditorInspector : Editor
 #if UNITY_EDITOR
         if (!Application.isPlaying && !EditorApplication.isUpdating && !EditorApplication.isCompiling)
         {
-            EditorApplication.delayCall += () =>
-            {
-                EditorUtility.SetDirty(mapEditor);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            };
+            EditorUtility.SetDirty(mapEditor);
+            EditorApplication.delayCall += AssetDatabase.SaveAssets;
         }
 #endif
     }
