@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1674255376609934209}
   - component: {fileID: -311471947234806948}
   - component: {fileID: -3268677808473382088}
+  - component: {fileID: 4770943535954079831}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -129,7 +130,10 @@ MonoBehaviour:
   isTracker: 0
   damage: 0
   trackTime: 0
+  trackRotationSpeed: 360
   target: {fileID: 0}
+  animator: {fileID: 4770943535954079831}
+  animName: Bullet1Boom
 --- !u!61 &-3268677808473382088
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -156,3 +160,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.43, y: 2.34}
   m_EdgeRadius: 0
+--- !u!95 &4770943535954079831
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650471220772229291}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 770c791445bf9c74095f5ec496661978, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

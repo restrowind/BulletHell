@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 012
   m_EditorClassIdentifier: 
   cardID: 12
-  cardName: Photo <br>      Field
+  cardName: Photo <br>              Field
   cardArtwork: {fileID: 21300000, guid: 514633d1d32ca6845b58ccdb395bb3cd, type: 3}
   description: 'Charge 1 Photon Field (clears barrage, restores 20 HP) '
   cost:

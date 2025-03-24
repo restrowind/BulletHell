@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 008
   m_EditorClassIdentifier: 
   cardID: 8
-  cardName: Tidal<br>               Wrath
+  cardName: Tidal<br>             Wrath
   cardArtwork: {fileID: 21300000, guid: 0d3d5e56fdd01914796f4c910a67cc3a, type: 3}
   description: 'Double all damage dealt this turn '
   cost:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 018
   m_EditorClassIdentifier: 
   cardID: 18
-  cardName: 'Genetic <br>    Rebirth '
+  cardName: 'Genetic <br>         Rebirth '
   cardArtwork: {fileID: 21300000, guid: 38aa74ec997d08d43bddc09de0342adb, type: 3}
   description: 'Restore 50% of missing HP '
   cost:

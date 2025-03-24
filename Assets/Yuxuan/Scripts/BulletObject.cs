@@ -31,4 +31,6 @@ public class BulletObject : ScriptableObject
    public float trackTime;
    [Header("预制体")] public GameObject Prefabs;
 
+    [Header("追踪设置")]
+    public float trackRotationSpeed = 360f;
 }

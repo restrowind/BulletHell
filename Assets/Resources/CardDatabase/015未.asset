@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: "015\u672A"
   m_EditorClassIdentifier: 
   cardID: 15
-  cardName: 'Tidal <br>      Bond '
+  cardName: 'Tidal <br>              Bond '
   cardArtwork: {fileID: 21300000, guid: 7d1057aa08f30714bb925b7be73ed75b, type: 3}
-  description: 'Discard 2 cards, summon a Marine Unit (lasts 2 turns) '
+  description: During the next bullet phase, whenever the sea beast takes damage,
+    return it to the enemy
   cost:
     aqua: 0
     lumen: 2

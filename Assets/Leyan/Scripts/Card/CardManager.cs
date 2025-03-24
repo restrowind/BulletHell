@@ -215,21 +215,26 @@ public class CardManager : MonoBehaviour
         CardInstance card18 = new CardInstance();
         CardInstance card19 = new CardInstance();
         CardInstance card20 = new CardInstance();
-        card1.InitCard(12);
-        card2.InitCard(12);
-        card3.InitCard(12);
-        card4.InitCard(12);
-        card5.InitCard(12);
-        card6.InitCard(12);
-        card7.InitCard(12);
-        card8.InitCard(14);
-        card9.InitCard(14);
-        card10.InitCard(14);
-        card11.InitCard(14);
-        card12.InitCard(14);
-        card13.InitCard(14);
+        card1.InitCard(1);
+        card2.InitCard(2);
+        card3.InitCard(3);
+        card4.InitCard(4);
+        card5.InitCard(5);
+        card6.InitCard(6);
+        card7.InitCard(7);
+        card8.InitCard(8);
+        card9.InitCard(9);
+        card10.InitCard(10);
+        card11.InitCard(11);
+        card12.InitCard(12);
+        card13.InitCard(13);
         card14.InitCard(14);
-        card15.InitCard(14);
+        card15.InitCard(15);
+        card16.InitCard(16);
+        card17.InitCard(17);
+        card18.InitCard(18);
+        card19.InitCard(19);
+        card20.InitCard(20);
         initCards.Add(card1);
         initCards.Add(card2);
         initCards.Add(card3);
@@ -245,6 +250,11 @@ public class CardManager : MonoBehaviour
         initCards.Add(card13);
         initCards.Add(card14);
         initCards.Add(card15);
+        initCards.Add(card16);
+        initCards.Add(card17);
+        initCards.Add(card18);
+        initCards.Add(card19);
+        initCards.Add(card20);
 
         //测试
         initCardsManagerForCombat();
@@ -438,12 +448,12 @@ public class CardManager : MonoBehaviour
             case 3:
                 LoadARoundsBuff(() =>
                 {
-                    _boss.bossCountDown.MultipleLengthReduceRate(0.8f);
-                    _player.MultipleCollectEnhance(1.25f);
+                    _boss.bossCountDown.MultipleLengthReduceRate(0.5f);
+                    _player.MultipleCollectEnhance(2f);
                 }, () =>
                 {
-                    _boss.bossCountDown.MultipleLengthReduceRate(1.25f);
-                    _player.MultipleCollectEnhance(0.8f);
+                    _boss.bossCountDown.MultipleLengthReduceRate(2f);
+                    _player.MultipleCollectEnhance(0.5f);
                 }, 1, 1);
                 break;
             case 4:

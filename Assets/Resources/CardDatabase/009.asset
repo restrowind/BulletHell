@@ -15,12 +15,13 @@ MonoBehaviour:
   cardID: 9
   cardName: Poseidon's<br>                Fury
   cardArtwork: {fileID: 21300000, guid: b608416c81a5fa34097483a553bc0b69, type: 3}
-  description: 'If no damage is taken in the next barrage, deal 50 damage after it
-    ends '
+  description: If no damage is taken during the next bullet phase, deal 50 damage
+    to the enemy after it ends
   cost:
     aqua: 3
     lumen: 0
     vitality: 0
   cardType: 1
   rarity: 0
+  elementType: 0
   effects: []

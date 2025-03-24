@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 020
   m_EditorClassIdentifier: 
   cardID: 20
-  cardName: 'Light <br>     Infusion '
+  cardName: 'Light <br>       Infusion '
   cardArtwork: {fileID: 21300000, guid: 9a0513d63d5e6bc418a6f2e2fc79a93c, type: 3}
-  description: 'Consume all light elements, restore 10 HP per element '
+  description: 'Consume all lumen elements, restore 10 HP per element '
   cost:
     aqua: 0
     lumen: 2

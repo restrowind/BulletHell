@@ -56,6 +56,7 @@ public class HandCardUIInstance : MonoBehaviour, IPointerEnterHandler, IPointerE
             //Debug.Log(" Û±Í–¸Õ£‘⁄ Image …œ");
             mainUI.SetHoverInfo(true, _index);
             mainUI.CalculateCardsPosAndRot();
+            GlobalAudioPlayer.Instance.Play("CardHover");
         }
     }
 

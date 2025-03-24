@@ -81,11 +81,11 @@ public class Sender : MonoBehaviour
 
     private void Send(float angle)
     {
-        // 直接实例化新子弹
+        // 实例化新子弹
         GameObject go = Instantiate(bullet.Prefabs, bulletsParent);
         go.transform.position = transform.position;
 
-        // **如果启用了 FacePlayerOnFire，子弹朝向玩家**
+        // 设置初始朝向
         if (bullet.FacePlayerOnFire && target != null)
         {
             Vector3 dir = (target.position - transform.position).normalized;
@@ -102,10 +102,10 @@ public class Sender : MonoBehaviour
         {
             bh.isTracker = bullet.isTrack;
             bh.trackTime = bullet.trackTime;
+            bh.trackRotationSpeed = bullet.trackRotationSpeed; // ✅ 新增同步拐弯速度
             bh.damage = bullet.Damage;
             bh.target = target;
 
-            // 设置自动销毁
             Destroy(go, bullet.LiftCycle);
             InitBullet(bh);
         }

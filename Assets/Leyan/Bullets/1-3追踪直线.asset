@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0adf68bb7843aaa4bb2afadc7ee3798a, type: 3}
+  m_Name: "1-3\u8FFD\u8E2A\u76F4\u7EBF"
+  m_EditorClassIdentifier: 
+  LiftCycle: 5
+  LinearVelocity: 4
+  Acceleration: 0
+  AngularVelocity: 0
+  AngularAcceleration: 0
+  MaxVelocity: 2.1474836e+9
+  FacePlayerOnFire: 1
+  SenderAngularVelocity: 0
+  SenderMaxAngularVelocity: 2.1474836e+9
+  SenderAccleration: 0
+  Count: 1
+  LineAngle: 0
+  SendInterval: 0.5
+  Damage: 1
+  isTrack: 1
+  trackTime: 0.3
+  Prefabs: {fileID: 5650471220772229291, guid: 34e73a183a34f014dbc94abe2c583344, type: 3}
+  trackRotationSpeed: 60

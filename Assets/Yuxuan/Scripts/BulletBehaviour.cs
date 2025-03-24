@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -11,52 +12,53 @@ public class BulletBehaviour : MonoBehaviour
     public float MaxVelocity = int.MaxValue;
     public float LifeTime = 5f;
 
-    private Sender sender; // Reference to Sender to return bullets to the pool
+    private Sender sender;
 
     public bool isTracker;
     public float damage;
     public float trackTime;
+    public float trackRotationSpeed = 360f; // 每秒最大转向角度
     public Transform target;
     private bool isMove;
+    [SerializeField] private Animator animator;
+    [SerializeField] private string animName;
+
     private void Awake()
     {
-        sender = FindObjectOfType<Sender>(); // You could also set this manually in the Inspector
-        
+        sender = FindObjectOfType<Sender>();
     }
 
     private void FixedUpdate()
     {
-        if (gameObject == null) return; // Check to avoid errors if the object was destroyed
+        if (gameObject == null) return;
         if (LifeTime <= 0)
         {
-            // Return the bullet to the pool instead of destroying it
-           Destroy(gameObject);
+            Destroy(gameObject);
         }
-        if (isTracker)
+
+        if (isTracker && target != null)
         {
             trackTime -= Time.fixedDeltaTime;
             if (trackTime <= 0)
             {
-               transform .position = Vector2.MoveTowards(transform.position, target.position, 0.1f);
-                //Debug.Log("moveToTarget");
-                isMove = true;
+                Vector2 directionToTarget = (target.position - transform.position).normalized;
+                float angleToTarget = Vector2.SignedAngle(transform.right, directionToTarget);
+
+                float maxTurn = trackRotationSpeed * Time.fixedDeltaTime;
+                float clampedAngle = Mathf.Clamp(angleToTarget, -maxTurn, maxTurn);
+
+                transform.Rotate(Vector3.forward, clampedAngle);
             }
-            
         }
 
         if (!isMove)
         {
-            LinearVelocity = Mathf.Clamp(LinearVelocity + Acceleration * Time.fixedDeltaTime,
-                -MaxVelocity, MaxVelocity);
+            LinearVelocity = Mathf.Clamp(LinearVelocity + Acceleration * Time.fixedDeltaTime, -MaxVelocity, MaxVelocity);
             AngularVelocity += AngularAcceleration * Time.fixedDeltaTime;
             transform.Translate(LinearVelocity * Vector2.right * Time.fixedDeltaTime, Space.Self);
             transform.rotation *= Quaternion.Euler(new Vector3(0, 0, 1) * AngularVelocity * Time.fixedDeltaTime);
             LifeTime -= Time.fixedDeltaTime;
         }
-        
-        
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,16 +67,34 @@ public class BulletBehaviour : MonoBehaviour
         {
             if (!collision.transform.parent.GetComponentInChildren<PlayerCharacter>().playerCharacterPause)
             {
-                Destroy(gameObject);
                 collision.transform.parent.GetComponentInChildren<PlayerCharacter>().TakeDamage(damage);
-                //Debug.Log("Take Damage");
+                Boom();
             }
         }
         else if (collision.gameObject.CompareTag("SumonCreature"))
         {
             collision.GetComponentInChildren<SumonCreature>().GetDamage(damage);
-            Destroy(gameObject);
-
+            Boom();
         }
+    }
+
+    private void Boom()
+    {
+        StopMovement();
+        animator.Play(animName);
+    }
+
+    public void DestroyOneself()
+    {
+        Destroy(gameObject);
+    }
+
+    public void StopMovement()
+    {
+        LinearVelocity = 0;
+        Acceleration = 0;
+        AngularVelocity = 0;
+        AngularAcceleration = 0;
+        isMove = true;
     }
 }
