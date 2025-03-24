@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LevelManager : MonoBehaviour
 {

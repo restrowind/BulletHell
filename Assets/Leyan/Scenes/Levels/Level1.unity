@@ -3797,18 +3797,6 @@ MonoBehaviour:
       spawnPosition: {x: 3.02, y: 5.17, z: 0}
       rotation: -90
     - prefab: {fileID: 268584479}
-      bullet: {fileID: 11400000, guid: ef1962fbfedaba84cb09bf19ce35e91a, type: 2}
-      spawnTime: 22
-      destroyTime: 5
-      spawnPosition: {x: 0, y: 5.17, z: 0}
-      rotation: -180
-    - prefab: {fileID: 268584479}
-      bullet: {fileID: 11400000, guid: f461699127f97124facbfd3dedac723f, type: 2}
-      spawnTime: 22
-      destroyTime: 5
-      spawnPosition: {x: 0, y: 5.17, z: 0}
-      rotation: 0
-    - prefab: {fileID: 268584479}
       bullet: {fileID: 11400000, guid: 885e45a0f90bc1544a3d53955c28f0cf, type: 2}
       spawnTime: 22
       destroyTime: 5
@@ -3819,12 +3807,6 @@ MonoBehaviour:
       spawnTime: 8
       destroyTime: 5
       spawnPosition: {x: -3.5, y: 5.17, z: 0}
-      rotation: 90
-    - prefab: {fileID: 268584479}
-      bullet: {fileID: 11400000, guid: 0d83e2bba21e42345a948798bbfd7a0a, type: 2}
-      spawnTime: 8.2
-      destroyTime: 5
-      spawnPosition: {x: 3.5, y: 5.17, z: 0}
       rotation: 90
     - prefab: {fileID: 268584479}
       bullet: {fileID: 11400000, guid: 0d83e2bba21e42345a948798bbfd7a0a, type: 2}
@@ -3845,12 +3827,6 @@ MonoBehaviour:
       spawnPosition: {x: 3.5, y: -5.17, z: 0}
       rotation: 90
     - prefab: {fileID: 268584479}
-      bullet: {fileID: 11400000, guid: b8a7b2f6b9024a041a3a2c68b5905084, type: 2}
-      spawnTime: 16.25
-      destroyTime: 5
-      spawnPosition: {x: -3.5, y: -5.17, z: 0}
-      rotation: 90
-    - prefab: {fileID: 268584479}
       bullet: {fileID: 11400000, guid: d39ac0d81c5c0c943bd039f2f7f689e9, type: 2}
       spawnTime: 0
       destroyTime: 5
@@ -3867,12 +3843,6 @@ MonoBehaviour:
       spawnTime: 0
       destroyTime: 5
       spawnPosition: {x: 7, y: -5.17, z: 0}
-      rotation: 180
-    - prefab: {fileID: 268584479}
-      bullet: {fileID: 11400000, guid: b04f8beaaf5eadd4faa28be73bf4c337, type: 2}
-      spawnTime: 0
-      destroyTime: 5
-      spawnPosition: {x: -7, y: 5.17, z: 0}
       rotation: 180
   - objects:
     - prefab: {fileID: 268584479}

@@ -63,6 +63,15 @@ public class SpawnObject : MonoBehaviour, IBattlePhaseDependent
                 StartCoroutine(SpawnRoutine(obj));
             }
         }
+        else
+        {
+
+            Debug.Log("SpawnObject: 开始生成回合 " + currentRound% roundObjects.Count);
+            foreach (ObjectConfig obj in roundObjects[currentRound % roundObjects.Count].objects)
+            {
+                StartCoroutine(SpawnRoutine(obj));
+            }
+        }
     }
 
     private IEnumerator SpawnRoutine(ObjectConfig config)

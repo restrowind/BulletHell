@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Leyan/Scenes/Levels/Level1.unity
     guid: ce648efa271181b4db2c8c0ba85bd5ae
+  - enabled: 1
+    path: Assets/Leyan/Scenes/Levels/Level3.unity
+    guid: d577d49abd3a9ec4b9a3d5907271accc
   m_configObjects: {}

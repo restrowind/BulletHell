@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9c697e9d8931747ba6e4714478ca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: 1b94222f996f25a448f7b74a23f389b7, type: 2}
+  mapData: {fileID: 11400000, guid: 3ec00b268c1a1d848bd084ecdf0c590b, type: 2}
   tilePrefabs:
   - {fileID: 4943793770366817233, guid: 48a87a5a5e997a4438ceabbc0a7d5dcb, type: 3}
   - {fileID: 5684966385122329566, guid: 77232fb9eb930dd43b17ef0f67016073, type: 3}
@@ -2578,7 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77514c21149bb9d4385d07d32fa510c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 150
   currentHP: 0
   bossCountDown: {fileID: 866014664}
   HPBar: {fileID: 1490843643}
@@ -4341,7 +4341,7 @@ MonoBehaviour:
   _currentState: 0
   _cardManager: {fileID: 1242822020}
   fistDrawCardCount: 2
-  everyTimeDrawCardCount: 2
+  everyTimeDrawCardCount: 3
   startDuration: 2
   drawCardDuration: 2
   conversationDuration: 2
