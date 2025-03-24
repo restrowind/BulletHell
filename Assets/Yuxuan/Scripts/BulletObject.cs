@@ -33,4 +33,11 @@ public class BulletObject : ScriptableObject
 
     [Header("追踪设置")]
     public float trackRotationSpeed = 360f;
+
+
+    [Header("发射器平移配置")]
+    public Vector2 SenderMoveDirection = Vector2.zero;   // 发射器移动方向
+    public float SenderMoveSpeed = 0f;                   // 初始速度
+    public float SenderMoveAcceleration = 0f;            // 线性加速度
+    public float SenderMaxMoveSpeed = Mathf.Infinity;    // 最大速度
 }

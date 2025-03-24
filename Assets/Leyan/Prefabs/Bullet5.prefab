@@ -147,7 +147,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.28, y: 0.01}
+  m_Offset: {x: -0.24, y: 0.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -158,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.06, y: 0.99}
+  m_Size: {x: 4.13, y: 3.81}
   m_EdgeRadius: 0
 --- !u!1 &7642137565823706245
 GameObject:
@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 1802157956563281913}
   - component: {fileID: 7355214685908454274}
   - component: {fileID: 8530517030648777304}
+  - component: {fileID: 7160016760200583160}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -186,8 +187,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7642137565823706245}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.27, y: 4.11, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 6.1, y: 16.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 983196635555554644}
@@ -266,3 +267,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7160016760200583160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642137565823706245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2141917a786484f9dde7a78c60f7d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

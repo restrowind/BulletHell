@@ -18,6 +18,8 @@ public class Sender : MonoBehaviour
     private float currentIntervalRate = 1f;  // 当前发射倍率
     [SerializeField] private float extraIntervalRate = 1f; // 额外倍率，供外部调整
 
+    private float currentMoveSpeed = 0f;
+
     private void Awake()
     {
         bulletsParent = GameObject.Find("BulletController")?.transform;
@@ -38,11 +40,23 @@ public class Sender : MonoBehaviour
             bulletsParent = transform;
         }
         UpdateIntervalRate();
+        currentMoveSpeed = bullet.SenderMoveSpeed;
     }
 
     private void FixedUpdate()
     {
         if (bullet == null) return;
+
+        if (bullet.SenderMoveDirection != Vector2.zero)
+        {
+            // 加速度影响
+            currentMoveSpeed += bullet.SenderMoveAcceleration * Time.fixedDeltaTime;
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, -bullet.SenderMaxMoveSpeed, bullet.SenderMaxMoveSpeed);
+
+            // 移动
+            Vector3 offset = (Vector3)(bullet.SenderMoveDirection.normalized * currentMoveSpeed * Time.fixedDeltaTime);
+            transform.position += offset;
+        }
 
         // --- 1️⃣ 处理自旋转（确保生效）---
         if (bullet.SenderAngularVelocity != 0 || bullet.SenderAccleration != 0)
